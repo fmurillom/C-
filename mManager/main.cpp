@@ -8,9 +8,9 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include "includes/memBlock.h"
-#include "includes/cajun/json/reader.h"
-#include "includes/cajun/json/writer.h"
+#include "../includes/memBlock.h"
+#include "../includes/cajun/json/reader.h"
+#include "../includes/cajun/json/writer.h"
 void error(const char *msg)
 {
     perror(msg);
