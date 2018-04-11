@@ -19,13 +19,19 @@ void error(const char *msg)
     exit(0);
 }
 
-std::string socketConnect(){
+/*!
+ * \brief socketConnect crea conexion cliente con el servidor.
+ * \param json mensaje a enviar dependiendode lo que se requiera.
+ * \param port puerto en el que se encuentra el socket servidor.
+ * \return respuesta recibida por el servidor
+ */
+std::string socketConnect(std::string json, int port){
     int sockfd, portno, n;
         struct sockaddr_in serv_addr;
         struct hostent *server;
 
         char buffer[1000000];
-        portno = 51717;
+        portno = port;
         sockfd = socket(AF_INET, SOCK_STREAM, 0);
         if (sockfd < 0)
             error("ERROR opening socket");
@@ -42,7 +48,7 @@ std::string socketConnect(){
         serv_addr.sin_port = htons(portno);
         if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0)
             error("ERROR connecting");
-        std::string send = "{\"command\" : \"info\"}";
+        std::string send = json;
         bzero(buffer,1000000);
         n = write(sockfd,send.c_str(),send.size());
         if (n < 0)
@@ -72,6 +78,10 @@ C_IDE::~C_IDE()
 {
     delete ui;
 }
+/*!
+ * \brief C_IDE::createUI
+ * Funcion para inicializar la tabla ram view.
+ */
 
 void C_IDE::createUI(){
     ui->tableWidget->setShowGrid(true);
@@ -82,13 +92,16 @@ void C_IDE::createUI(){
 }
 
 
-
+/*!
+ * \brief C_IDE::refreshMem
+ * Funcion que se encarga actualizar los datos de la memoria en el liveview
+ */
 void C_IDE::refreshMem(){
     using namespace json;
 
     ui->tableWidget->setRowCount(0);
     Object jSonStatus;
-    std::string jsonIn = socketConnect();
+    std::string jsonIn = socketConnect("{\"command\" : \"info\"}", 51718);
     std::stringstream ss;
     ss << jsonIn;
     Reader::Read(jSonStatus, ss);
