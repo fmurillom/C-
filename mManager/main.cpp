@@ -11,11 +11,22 @@
 #include "../includes/memBlock.h"
 #include "../includes/cajun/json/reader.h"
 #include "../includes/cajun/json/writer.h"
+
+/*!
+ * Funcion para debuguear. Detiene la ejecucion del programa y muestra el error en pantalla.
+ * @param msg
+ */
 void error(const char *msg)
 {
     perror(msg);
     exit(1);
 }
+
+/*!
+ * Funcion encargada de leer los datos recibidos por el socket de comunicacion.
+ * @param sock sockt de comunicacion a leer.
+ * @param server puntero a la direccion donde se encuentra el manejador de meoria.
+ */
 
 void recieveData (int sock, memBlock *server)
 {
@@ -46,6 +57,12 @@ void recieveData (int sock, memBlock *server)
     }
 }
 
+
+/*!
+ * Funcion encargada de crear y manejar todas las comunicaciones creadas por el socket.
+ * @param server puntero a la direccion donde se encuentra el manejador de meoria.
+ * @param portIn purto en el que se desea correr el socket servidor.
+ */
 void sockServer(memBlock *server, int portIn){
     int sockfd, newsockfd, port, pid;
     socklen_t clilen;

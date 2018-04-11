@@ -9,7 +9,10 @@
 #include "../includes/cajun/json/writer.h"
 
 using namespace json;
-
+/*!
+ * Metodo constructor encargado de reservar el bloque de memoeria a utilizar por el servidor de memoria y separar este bloque en datos y os.
+ * @param size tamaño crear el blouque.
+ */
 memBlock::memBlock(std::size_t size){
     os = (char *) malloc(size);
     first = (block *) os + 600;
@@ -19,6 +22,10 @@ memBlock::memBlock(std::size_t size){
     memBlock::size = size;
 }
 
+/*!
+ * Agrega datos n memoria
+ * @param jsonStr informacion de datos a agregar.
+ */
 void memBlock::addToMem(std::string jsonStr){
     std::stringstream jsonSS;
     jsonSS << jsonStr;
@@ -72,6 +79,11 @@ void memBlock::addToMem(std::string jsonStr){
     }
 }
 
+/*!
+ * Guarda un bloque de memoria en disco.
+ * @param id identificador del bloque de memoria que se desea guardar.
+ */
+
 void memBlock::saveBlock(std::string id){
     block *aux = first;
     block *before = aux;
@@ -101,6 +113,11 @@ void memBlock::saveBlock(std::string id){
     }
     delFromMem(id);
 }
+
+/*!
+ * Carga un bloque de memori de disco a memoria RAM.
+ * @param id identificador del bloque que se desea cargar.
+ */
 
 void memBlock::loadBlock(std::string id){
     block *aux = new (os) (block);
@@ -133,6 +150,10 @@ void memBlock::loadBlock(std::string id){
     addToMem(*jsonSend);
 }
 
+/*!
+ * Metodo encargado de desfragmentar la memoria
+ */
+
 void memBlock::defragMem(){
     block *aux = first;
     block *before = aux;
@@ -155,6 +176,11 @@ void memBlock::defragMem(){
     }
     current = (char *) before->next;
 }
+
+/*!
+ * Elimina el dato deseado de la memoria.
+ * @param jsonIn datos de memoria que se desean eliminar.
+ */
 
 void memBlock::delFromMem(std::string jsonIn){
     std::stringstream ss;
@@ -184,6 +210,11 @@ void memBlock::delFromMem(std::string jsonIn){
         std::cout << "Value not Found" << std::endl;
     }
 }
+
+/*!
+ * Convierte el estado de la memoria incluidos sus datos a un jsonstring para poder ser enviada utilizando sockets.
+ * @return
+ */
 
 std::string memBlock::toJson(){
     Object varJson;
@@ -219,13 +250,26 @@ std::string memBlock::toJson(){
     return sendStream.str();
 }
 
+/*!
+ * Metodo encargado de liberar y borrar todo el bloque de memoria seleccionado.
+ */
 void memBlock::releaseMem(){
     delete[] os;
 }
 
+/*!
+ * Retorna la cantidad de espacio libre que le queda a la memoria.
+ * @return
+ */
+
 std::size_t memBlock::getFreeSpace(){
     return free;
 }
+
+/*!
+ * Metodo para diferenciar entre agregar y eliminar datos.
+ * @param in
+ */
 
 void memBlock::receiver(std::string in) {
     Object JsonIn;
@@ -241,6 +285,12 @@ void memBlock::receiver(std::string in) {
     }
 }
 
+/*!
+ * Verifica si la variable deseada se encuentra en la memoria.
+ * @param id identificador de la variable que desea buscar.
+ * @return jsonString que contiene la informacion si esta se encuentra en memoria.
+ */
+
 std::string memBlock::inMem(std::string id) {
     block *aux = first;
     while(aux != NULL){
@@ -249,6 +299,7 @@ std::string memBlock::inMem(std::string id) {
         }else{
             aux = aux->next;
         }
+
     }
     if(aux != NULL){
         Object JsonOut;

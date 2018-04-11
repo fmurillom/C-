@@ -1,3 +1,5 @@
-{"id" : "a", "value": true, "local": "false", "type" : "bool", "command" : "add"}
-{"id" : "a", command" : "del"}
-{"id" : "a", command" : "srch"}
+Agregar {"id" : "a", "value": true, "local": "false", "type" : "bool", "command" : "add"}
+
+Eliminar {"id" : "a", command" : "del"}
+
+Buscar {"id" : "a", command" : "srch"}
