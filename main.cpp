@@ -9,8 +9,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include "includes/memBlock.h"
-#include "cajun/json/reader.h"
-#include "cajun/json/writer.h"
+#include "includes/cajun/json/reader.h"
+#include "includes/cajun/json/writer.h"
 void error(const char *msg)
 {
     perror(msg);
@@ -80,7 +80,6 @@ void sockServer(memBlock *server, int portIn){
 
 int main(int argc, char *argv[])
 {
-    std::cout << argv[1] << std::endl;
     memBlock *mServer = new memBlock(100000);
     sockServer(mServer, atoi(argv[1]));
 }

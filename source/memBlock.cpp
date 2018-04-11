@@ -5,8 +5,8 @@
 #include <fstream>
 #include <cstring>
 #include "../includes/memBlock.h"
-#include "../cajun/json/reader.h"
-#include "../cajun/json/writer.h"
+#include "../includes/cajun/json/reader.h"
+#include "../includes/cajun/json/writer.h"
 
 using namespace json;
 
