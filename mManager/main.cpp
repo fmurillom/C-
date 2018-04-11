@@ -37,7 +37,8 @@ void recieveData (int sock, memBlock *server)
     if(command == "srch"){
         n = write(sock, server->inMem(String(JsonIn["id"])).c_str(), server->inMem(String(JsonIn["id"])).size());
         if (n < 0) error("ERROR writing to socket");
-    }else{
+    }
+    else{
         server->receiver(buffer);
         std::string state = server->toJson();
         n = write(sock, state.c_str(), state.size());

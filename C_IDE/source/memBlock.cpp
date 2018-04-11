@@ -203,9 +203,6 @@ std::string memBlock::toJson(){
                 variableData["value"] = Boolean((bool) aux->data);
             }
             variableData["type"] = String(aux->type);
-            std::stringstream ss;
-            ss << &aux->data;
-            variableData["pointer"] = String(ss.str());
             variableArray.Insert(variableData);
             aux = aux->next;
         } else{
