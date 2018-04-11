@@ -7,4 +7,4 @@ set(CMAKE_CXX_FLAGS "-pthread")
 
 
 
-add_executable(mServer includes/cajun includes/memBlock.h source/memBlock.cpp mManager/main.cpp sintaxys/mainS.cpp)
+add_executable(Proyecto_1_v0 includes/cajun includes/memBlock.h source/memBlock.cpp sintaxys/mainS.cpp includes/S_List.h includes/Scoope.h source/Scoope.cpp main.cpp)
