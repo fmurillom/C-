@@ -1,0 +1,3 @@
+{"id" : "a", "value": true, "local": "false", "type" : "bool", "command" : "add"}
+{"id" : "a", command" : "del"}
+{"id" : "a", command" : "srch"}
