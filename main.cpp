@@ -15,9 +15,9 @@ string const ptrn_nombre_v                  =           "(?!(int|long|char|float
 string const ptrn_las_weas_de_antes_de_v    =           "(?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*";
 string const ptrn_weas_v                    =           "\\s*((?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*)\\s*((?!(int|long|char|float|double|struct)[\\;|\\s])[A-z]+[A-z\\d\\_]*)\\s*";
 string const ptrn_struct                    =           "(?:(struct)\\s*([A-z][A-z\\d\\_]*)\\s*(\\{)\\s*((?![\\{\\}])\\s*(?:[^\\{\\}]|\\s)+)\\s*(\\})\\s*((?:[A-z][A-z\\d\\_]*\\s*\\,?\\s*)*\\s*\\;))";
-
 regex const rgx_struct_v0(ptrn_struct);
 string const ptrn_hmmm                      =           "(\\{)\\s*((?![\\{\\}])\\s*(?:[^\\{\\}]|\\s)+)\\s*(\\})";
+
 
 
 
@@ -520,11 +520,6 @@ void readCode(string text)
         }
 
     }
-}
-
-void waca_waca(string text)
-{
-
 }
 
 void extraerString(string s, string * array, regex r)
