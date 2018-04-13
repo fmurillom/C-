@@ -44,8 +44,17 @@ string const ptrn_weas_v                    =           "\\s*((?:[\\+]{2}\\s*|[\
 string const ptrn_struct                    =           "(?:(struct)\\s*([A-z][A-z\\d\\_]*)\\s*(\\{)\\s*((?![\\{\\}])\\s*(?:[^\\{\\}]|\\s)+)\\s*(\\})\\s*((?:[A-z][A-z\\d\\_]*\\s*\\,?\\s*)*\\s*\\;))";
 regex const rgx_struct_v0(ptrn_struct);
 string const ptrn_hmmm                      =           "(\\{)\\s*((?![\\{\\}])\\s*(?:[^\\{\\}]|\\s)+)\\s*(\\})";
-string const ptrn_print                     =           "\\s*(Hable)\\(\\\"([^\\\"]*)\\\"\\)\\s*\\;";
+string const ptrn_print                     =           "\\s*(Hable)\\(\\s*(\\\"[^\\\"]*\\\"|(?:(?!(int|long|char|float|double|struct)[\\;\\s\\)])[A-z][A-z\\d\\_]*))\\s*\\)\\s*\\;";
 regex const rgx_print_v0(ptrn_print);
+
+
+string const ptrn_getAddr                   =           "\\s*(getAddr)\\(\\s*((?!(int|long|char|float|double|struct)[\\;\\s\\)])[A-z][A-z\\d\\_]*)\\s*\\)\\s*\\;";
+regex const rgx_getAddr = regex(ptrn_getAddr);
+
+
+string const ptrn_getValue                   =           "\\s*(getValue)\\(\\s*((?!(int|long|char|float|double|struct)[\\;\\s\\)])[A-z][A-z\\d\\_]*)\\s*\\)\\s*\\;";
+regex const rgx_getValue = regex(ptrn_getValue);
+
 
 
 regex const rgx_arreglar_espaciado_llaves = regex("\\s{2,}|\\{|\\}");//Dos o mas espacios juntos o las llaves
@@ -53,42 +62,54 @@ regex const rgx_arreglar_espaciado = regex("\\s{2,}");//Dos o mas espacios junto
 
 
 
-string const ptrn_declaracionGeneral_v0 =               "\\s*(int|long|char|float|double|struct)(\\s*\\*+\\s*|\\*+\\s*|\\s*\\*+|\\s+)((?!(int|long|char|float|double|struct)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&\\']*)\\s*\\;";
-regex const rgx_DG(ptrn_declaracionGeneral_v0);
+//string const ptrn_declaracionGeneral_v0 =               "\\s*(int|long|char|float|double|struct)(\\s*\\*+\\s*|\\*+\\s*|\\s*\\*+|\\s+)((?!(int|long|char|float|double|struct)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&\\']*)\\s*\\;";//con * como punteros
+//regex const rgx_DG(ptrn_declaracionGeneral_v0);
 
+string const ptrn_declaracionGeneral_v1 =               "\\s*(int|long|char|float|double|struct)\\s*((?!(int|long|char|float|double|struct)[\\;|\\s])[A-z][A-z\\d\\_]*)\\s*\\;|\\s*(reference)\\s*\\<(int|long|char|float|double)\\>\\s+((?!(int|long|char|float|double|struct)[\\;|\\s])[A-z][A-z\\d\\_]*)\\;";
+regex const rgx_DG(ptrn_declaracionGeneral_v1);//Nuevo
 
-string const ptrn_asignacionGeneral_v1 =                "\\s*((?!.*?[\\&]{2})[^\\s0-9A-z]*)\\s*((?!(int|long|char|float|doble)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&]*)\\s*(=|\\+=|\\-=)\\s*(?:(?:(\\d+)|(\\'.\\')|(\\\".[^\\\"]*\\\")|(\\\"\\\")|(\\d+\\.\\d+)|((?!.*?[\\&]{2})[\\*\\&]*)((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&\\'\\;]*))|\\.)\\s*\\;";
-regex const rgx_AG_v1(ptrn_asignacionGeneral_v1);
+//string const ptrn_asignacionGeneral_v1 =                "\\s*((?!.*?[\\&]{2})[^\\s0-9A-z]*)\\s*((?!(int|long|char|float|doble)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&]*)\\s*(=|\\+=|\\-=)\\s*(?:(?:(\\d+)|(\\'.\\')|(\\\".[^\\\"]*\\\")|(\\\"\\\")|(\\d+\\.\\d+)|((?!.*?[\\&]{2})[\\*\\&]*)((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&\\'\\;]*))|\\.)\\s*\\;";
+//regex const rgx_AG_v1(ptrn_asignacionGeneral_v1);
 
 
 //Cuando supuestamente hay una operacion
-string const ptrn_asignacionGeneral_v2 =                "^\\s*((?!.*?[\\&]{2})[^\\s0-9A-z]*)\\s*((?!(int|long|char|float|doble|struct)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&]*)\\s*(=|\\+=|\\-=)\\s*(?:(?:(\\d+)|(\\'.\\')|(\\\".[^\\\"]*\\\")|(\\\"\\\")|(\\d+\\.\\d+)|((?!.*?[\\&]{2})[\\*\\&]*)((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&\\'\\;]*))|\\.)\\s*\\;";
-regex const rgx_AG_v2(ptrn_asignacionGeneral_v2);
+//string const ptrn_asignacionGeneral_v2 =                "^\\s*((?!.*?[\\&]{2})[^\\s0-9A-z]*)\\s*((?!(int|long|char|float|doble|struct)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&]*)\\s*(=|\\+=|\\-=)\\s*(?:(?:(\\d+)|(\\'.\\')|(\\\".[^\\\"]*\\\")|(\\\"\\\")|(\\d+\\.\\d+)|((?!.*?[\\&]{2})[\\*\\&]*)((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&\\'\\;]*))|\\.)\\s*\\;";
+//regex const rgx_AG_v2(ptrn_asignacionGeneral_v2);
 
 
-string const ptrn_declaracion_AsignacionGeneral_v2 =    "\\s*(int|long|char|float|double)(?:\\s*(\\*+)\\s*|(\\*+)\\s*|\\s*(\\*+)|(\\s+))((?!(int|long|char|float|double|struct)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&]*)\\s*(=)\\s*(?:(\\d+)|(\\'.\\')|(\\\".[^\\\"]*\\\")|(\\\"\\\")|(\\d+\\.\\d+)|((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*\\;";
+string const ptrn_asignacionGeneral_v3 =                "\\s*((?!(int|long|char|float|doble)[\\;|\\s])[A-z][A-z\\d\\_]*)\\s*(=|\\+=|\\-=)\\s*(?:(?:(\\+|\\-)?\\s*(\\d+))|(\\'.\\')|(\\\"[^\\\"]*\\\")|(\\d+\\.\\d+)|(\\+|\\-)?\\s*(?:(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)(?!(int|long|char|float|doble|struct)[\\;|\\s])([A-z][A-z\\d\\_]*))|((?!(int|long|char|float|doble|struct)[\\;|\\s])[A-z][A-z\\d\\_]*)|((?!(int|long|char|float|doble|struct)[\\;\\s\\+])[A-z][A-z\\d\\_]*)\\s*((?:[\\+]{2}|[\\-]{2}))))\\s*\\;";
+regex const rgx_AG_v3(ptrn_asignacionGeneral_v3);//Nuevo
+
+string const ptrn_declaracion_AsignacionGeneral_v2 =    "\\s*(?:(reference\\<(?:int|long|char|float|double)\\>)|(int|long|char|float|double))(?:\\s*(\\*+)\\s*|(\\*+)\\s*|\\s*(\\*+)|(\\s+))((?!(int|long|char|float|double|struct)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&]*)\\s*(=)\\s*(?:(\\d+)|(\\'.\\')|(\\\".[^\\\"]*\\\")|(\\\"\\\")|(\\d+\\.\\d+)|((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*\\;";
 regex const rgx_DAG_v1(ptrn_declaracion_AsignacionGeneral_v2);
 
 
-string const ptrn_operacionAritmetica_v4 =             "\\s*(?:(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)\\s*([A-z]+)|([A-z]+)\\s*([\\+]{2}|[\\-]{2})|([A-z]+|\\d+))\\s*([\\+\\-\\*\\/]|(?:[\\+\\-]\\s+(?![\\+\\-]{2}))*(?:[\\+\\-](?![\\+\\-]{2}))|\\-\\+|\\+\\-|\\/\\+|\\/\\-|\\*\\+|\\*\\-|\\%|(?:\\+\\-\\s*)*(?:\\+\\-))\\s*(?:\\s((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)\\s*([A-z]+)|([A-z]+)\\s*([\\+]{2}|[\\-]{2})|([A-z]+|\\d+))|((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)\\s*([A-z]+)|([A-z]+)\\s*((?:[\\+]{2}|[\\-]{2})))\\s*\\;";
-regex const rgx_OA_v0(ptrn_operacionAritmetica_v4);
+//string const ptrn_operacionAritmetica_v4 =             "\\s*(?:(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)\\s*([A-z]+)|([A-z]+)\\s*([\\+]{2}|[\\-]{2})|([A-z]+|\\d+))\\s*([\\+\\-\\*\\/]|(?:[\\+\\-]\\s+(?![\\+\\-]{2}))*(?:[\\+\\-](?![\\+\\-]{2}))|\\-\\+|\\+\\-|\\/\\+|\\/\\-|\\*\\+|\\*\\-|\\%|(?:\\+\\-\\s*)*(?:\\+\\-))\\s*(?:\\s((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)\\s*([A-z]+)|([A-z]+)\\s*([\\+]{2}|[\\-]{2})|([A-z]+|\\d+))|((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)\\s*([A-z]+)|([A-z]+)\\s*((?:[\\+]{2}|[\\-]{2})))\\s*\\;";
+//regex const rgx_OA_v0(ptrn_operacionAritmetica_v4);
 
 
-string const ptrn_operacionAritmetica_v5 =             "\\s*(?:([\\+\\-])?\\s*(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*([\\+]{2}|[\\-]{2})|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)|\\d+|\\d+\\.\\d+)|)\\s*([\\+\\-\\*\\/]|(?:[\\+\\-]\\s+(?![\\+\\-]{2}))*(?:[\\+\\-](?![\\+\\-]{2}))|\\-\\+|\\+\\-|\\/\\+|\\/\\-|\\*\\+|\\*\\-|\\%|(?:\\+\\-\\s*)*(?:\\+\\-))\\s*(?:\\s((?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*)(\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*([\\+]{2}|[\\-]{2})|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)|\\d+))|((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)\\s*(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*((?:[\\+]{2}|[\\-]{2})))\\s*";
-regex const rgx_OA_v1(ptrn_operacionAritmetica_v5);
+//string const ptrn_operacionAritmetica_v5 =             "\\s*(?:([\\+\\-])?\\s*(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*([\\+]{2}|[\\-]{2})|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)|\\d+|\\d+\\.\\d+)|)\\s*([\\+\\-\\*\\/]|(?:[\\+\\-]\\s+(?![\\+\\-]{2}))*(?:[\\+\\-](?![\\+\\-]{2}))|\\-\\+|\\+\\-|\\/\\+|\\/\\-|\\*\\+|\\*\\-|\\%|(?:\\+\\-\\s*)*(?:\\+\\-))\\s*(?:\\s((?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*)(\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*([\\+]{2}|[\\-]{2})|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)|\\d+))|((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)\\s*(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*((?:[\\+]{2}|[\\-]{2})))\\s*";
+//regex const rgx_OA_v1(ptrn_operacionAritmetica_v5);
+
+string const ptrn_operacionAritmetica_v5 =             "\\s*(?:(?:(?:(\\+|\\-)?\\s*(\\d+))|(\\'.\\')|(\\\"[^\\\"]*\\\")|(\\d+\\.\\d+)|(\\+|\\-)?\\s*(?:(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)(?!(int|long|char|float|doble|struct)[\\;\\s])([A-z][A-z\\d\\_]*))|((?!(int|long|char|float|doble|struct)[\\;\\s])[A-z][A-z\\d\\_]*)|((?!(int|long|char|float|doble|struct)[\\;\\s\\+\\-])[A-z][A-z\\d\\_]*)\\s*((?:[\\+]{2}|[\\-]{2}))))\\s*(|\\+|\\-|\\*|\\/)\\s*(?:(?:(\\+|\\-)?\\s*(\\d+))|(\\'.\\')|(\\\"[^\\\"]*\\\")|(\\d+\\.\\d+)|(\\+|\\-)?\\s*(?:(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)(?!(int|long|char|float|doble|struct)[\\;\\s])([A-z][A-z\\d\\_]*))|((?!(int|long|char|float|doble|struct)[\\;\\s])[A-z][A-z\\d\\_]*)|((?!(int|long|char|float|doble|struct)[\\;\\s\\+\\-])[A-z][A-z\\d\\_]*)\\s*((?:[\\+]{2}|[\\-]{2}))))|(?:(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)(?!(int|long|char|float|doble|struct)[\\;\\s])([A-z][A-z\\d\\_]*))|((?!(int|long|char|float|doble|struct)[\\;\\s\\+\\-])[A-z][A-z\\d\\_]*)\\s*((?:[\\+]{2}|[\\-]{2}))))\\s*";
+regex const rgx_OA_v1(ptrn_operacionAritmetica_v5);//Nuevo
 
 
-string const ptrn_operacionAritmetica_v6 =             "\\s*(?:([\\+\\-])?\\s*(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*([\\+]{2}|[\\-]{2})|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)|\\d+|\\d+\\.\\d+)|)\\s*([\\+\\-\\*\\/]|(?:[\\+\\-]\\s+(?![\\+\\-]{2}))*(?:[\\+\\-](?![\\+\\-]{2}))|\\-\\+|\\+\\-|\\/\\+|\\/\\-|\\*\\+|\\*\\-|\\%|(?:\\+\\-\\s*)*(?:\\+\\-))\\s*(?:\\s((?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*)(\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))|((?!.*?[\\&]{2})[\\*\\&]+)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)\\s*([\\+]{2}|[\\-]{2})|((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)\\s*([\\+]{2}|[\\-]{2})|\\'[^\\']+\\'|\\d+)|((?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z][A-z\\d\\_]*)|((?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)?\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z][A-z\\d\\_]*)\\s*((?:[\\+]{2}|[\\-]{2})))\\s*";
-regex const rgx_OA_v2(ptrn_operacionAritmetica_v6);
+//string const ptrn_operacionAritmetica_v6 =             "\\s*(?:([\\+\\-])?\\s*(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*([\\+]{2}|[\\-]{2})|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)|\\d+|\\d+\\.\\d+)|)\\s*([\\+\\-\\*\\/]|(?:[\\+\\-]\\s+(?![\\+\\-]{2}))*(?:[\\+\\-](?![\\+\\-]{2}))|\\-\\+|\\+\\-|\\/\\+|\\/\\-|\\*\\+|\\*\\-|\\%|(?:\\+\\-\\s*)*(?:\\+\\-))\\s*(?:\\s((?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*)(\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))|((?!.*?[\\&]{2})[\\*\\&]+)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)\\s*([\\+]{2}|[\\-]{2})|((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)\\s*([\\+]{2}|[\\-]{2})|\\'[^\\']+\\'|\\d+)|((?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z][A-z\\d\\_]*)|((?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)?\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z][A-z\\d\\_]*)\\s*((?:[\\+]{2}|[\\-]{2})))\\s*";
+//regex const rgx_OA_v2(ptrn_operacionAritmetica_v6);
+
+string const ptrn_operacionAritmetica_v7 =              "\\s*(|\\+|\\-|\\*|\\/)\\s*(?:(?:(\\+|\\-)?\\s*(\\d+))|(\\'.\\')|(\\\"[^\\\"]*\\\")|(\\d+\\.\\d+)|(\\+|\\-)?\\s*(?:(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)(?!(int|long|char|float|doble|struct)[\\;\\s])([A-z][A-z\\d\\_]*))|((?!(int|long|char|float|doble|struct)[\\;\\s])[A-z][A-z\\d\\_]*)|((?!(int|long|char|float|doble|struct)[\\;\\s\\+\\-])[A-z][A-z\\d\\_]*)\\s*((?:[\\+]{2}|[\\-]{2}))))\\s*";
+regex const rgx_OA_v2(ptrn_operacionAritmetica_v7);//Nuevo
 
 
 string const ptrn_operador_variable_v0 =             "\\s*(?:([\\+\\-\\*\\/]|(?:[\\+\\-]\\s+(?![\\+\\-]{2}))*(?:[\\+\\-](?![\\+\\-]{2}))|\\-\\+|\\+\\-|\\/\\+|\\/\\-|\\*\\+|\\*\\-|\\%|(?:\\+\\-\\s*)*(?:\\+\\-))([\\+\\-])?\\s*(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*|(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]+)*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*([\\+]{2}|[\\-]{2})|(((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*)|\\d+)))";
 regex const rgx_OV_v0(ptrn_operador_variable_v0);
+//Nuevo//"\\s*(?:([\\+\\-\\*\\/]|(?:[\\+\\-]\\s+(?![\\+\\-]{2}))*(?:[\\+\\-](?![\\+\\-]{2}))|\\-\\+|\\+\\-|\\/\\+|\\/\\-|\\*\\+|\\*\\-|\\%|(?:\\+\\-\\s*)*(?:\\+\\-))([\\+\\-])?\\s*(\\+|\\-)?\\s*(?:(?:((?:[\\+]{2}\\s*|[\\-]{2}\\s*)+)(?!(int|long|char|float|doble|struct)[\\;\\s])([A-z][A-z\\d\\_]*))|((?!(int|long|char|float|doble|struct)[\\;\\s\\+\\-])[A-z][A-z\\d\\_]*)\\s*((?:[\\+]{2}|[\\-]{2}))|((?!(int|long|char|float|doble|struct)[\\;\\s])[A-z][A-z\\d\\_]*)))";
+
 
 //Globales
 S_List<Scoope> * VG_scoopes = new S_List<Scoope>;
 S_List<S_List<string>> * VG_structs = new S_List<S_List<string>>;
-
 
 
 char getTypeDataDeclaration(std::string instruccion);
@@ -134,6 +155,7 @@ void eliminarEspacios(S_List<string> *tokens)
             tokens->del(i);
     }
 }
+
 bool getTokensOperacion(string str, S_List<string> *tokens)
 {
     smatch groups;
@@ -147,9 +169,13 @@ bool getTokensOperacion(string str, S_List<string> *tokens)
                 cantidad_a_cortar += i.length();
             if(!regex_match(i, regex("\\s*")))//Si el group solo es \s lo omite
                 if(x!=0)
+                {
                     tokens->add(i);
+                }
+
         }
         str = str.substr(cantidad_a_cortar, str.size());
+
     }
     while(str != ";" && str != "")
     {
@@ -169,7 +195,9 @@ bool getTokensOperacion(string str, S_List<string> *tokens)
         }
         else
         {
-            int veces = tokens->getSize();for(int a=0; a < veces; a++)tokens->delFirst();
+            int veces = tokens->getSize();
+            for(int a=0; a < veces; a++)
+                //tokens->delFirst();
             return false;
         }
 
@@ -199,7 +227,9 @@ int readInstruction(string instruccion, S_List<string> * tokens)
     //4 = Asignacion con operacion
     //5 = Declaracion-Asignacion con operacion
     //6 = Operacion
-    //7 = print
+    //7 = print()
+    //8 = getAddr()
+    //9 = getValue()
 
     smatch groups;
     if(regex_match(instruccion, groups, rgx_DG))//Declaracion
@@ -230,7 +260,7 @@ int readInstruction(string instruccion, S_List<string> * tokens)
         tokens = declaration_tokens;
         return 3;
     }
-    else if(regex_match(instruccion, groups, rgx_AG_v1))//Asignacion simple
+    else if(regex_match(instruccion, groups, rgx_AG_v3))//Asignacion simple
     {
         getTokens(groups, tokens);
         return 2;
@@ -249,6 +279,8 @@ int readInstruction(string instruccion, S_List<string> * tokens)
         S_List<string> * tokens_antes_de = new S_List<string>;
         S_List<string> * tokens_despues_de = new S_List<string>;
 
+        bool es_declaracion = false;
+
         if(regex_match(antes_de, grupos_antes_de, regex(ptrn_weas_v)))
         {
             getTokens(grupos_antes_de, tokens_antes_de);
@@ -256,10 +288,12 @@ int readInstruction(string instruccion, S_List<string> * tokens)
         else
         {
             string wawa = antes_de + ";";
+            //cout << "wawa: " << wawa << endl;
             if(regex_match(wawa, grupos_antes_de, rgx_DG))
             {
                 getTokens(grupos_antes_de, tokens_antes_de);
-                return 5;
+                es_declaracion = true;
+                //return 5;
             }
             else
             {
@@ -268,6 +302,7 @@ int readInstruction(string instruccion, S_List<string> * tokens)
         }
         if(regex_search(despues_de, grupos_despues_de, rgx_OA_v1))
         {
+            //cout << "despues_de: " << despues_de << endl;
             getTokensOperacion(despues_de, tokens_despues_de);
             //cout << "tokens_despues_de->show2ln(): ";
             //tokens_despues_de->show2ln();
@@ -287,7 +322,15 @@ int readInstruction(string instruccion, S_List<string> * tokens)
         *tokens = *tokens_antes_de;
         //tokens->show2ln();
         //cout << "Asignacion no simple" << endl;
-        return 4;
+        if(es_declaracion)
+        {
+            return 5;
+        }
+        else
+        {
+            return 4;
+        }
+
     }
     else if(regex_search(instruccion, groups, rgx_OA_v1) && getTokensOperacion(instruccion, tokens))
     {
@@ -298,6 +341,16 @@ int readInstruction(string instruccion, S_List<string> * tokens)
     {
         getTokens(groups, tokens);
         return 7;
+    }
+    else if(regex_search(instruccion, groups, rgx_getAddr))
+    {
+        getTokens(groups, tokens);
+        return 8;
+    }
+    else if(regex_search(instruccion, groups, rgx_getValue))
+    {
+        getTokens(groups, tokens);
+        return 9;
     }
     else
     {
@@ -341,6 +394,10 @@ S_List<string> * getScoopeVariables(Scoope scoope)
         string instruccion = lista_de_instrucciones->get(i);
         S_List<string> * tokens = new S_List<string>;
 
+        S_List<string> * tokens_antes_de_asgnacion = new S_List<string>;
+        bool llego_al_igual = false;
+
+
         switch(readInstruction(instruccion, tokens))
         {
             case 1://Declaracion
@@ -379,16 +436,29 @@ S_List<string> * getScoopeVariables(Scoope scoope)
 
 
             case 5:
-                switch(tokens->getSize())
+                tokens_antes_de_asgnacion->delAll();
+                llego_al_igual = false;
+                for(int i=0; i < tokens->getSize(); i++)
                 {
+                    if(tokens->get(i) == "=")
+                    {
+                        llego_al_igual = true;
+                    }
+                    if(!llego_al_igual)
+                    {
+                        tokens_antes_de_asgnacion->add(tokens->get(i));
+                    }
+                }
+                switch(tokens_antes_de_asgnacion->getSize())
+                {
+                    case 1:
+                        cout << "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ" << endl;
+                        break;
                     case 2:
-                        //cout << "{ " << "\"Tipo\"" << " : " << tokens->get(0) << ", " << "\"Nombre\"" << " : " << tokens->get(1) << " }" << endl;
+                        ids->add(tokens->get(1));
                         break;
                     case 3:
-                        //cout << "{ " << "\"Tipo\"" << " : " << tokens->get(0) << tokens->get(1) << ", " << "\"Nombre\"" << " : " << tokens->get(2) << " }" << endl;
-                        break;
-                    case 4:
-                        //cout << "{ " << "\"Tipo\"" << " : " << tokens->get(1) << tokens->get(2) << ", " << "\"Nombre\"" << " : " << tokens->get(3) << " }" << endl;
+                        cout << "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ" << endl;
                         break;
                     default:
                         //cout << "{Default}" << endl;
@@ -413,19 +483,19 @@ bool readLines(string text)
 
     string segmento;
     stringstream stringstream(text);
-    S_List<string> *list_de_instrucciones = new S_List<string>;
+    S_List<string> *lista_de_instrucciones = new S_List<string>;
     while(std::getline(stringstream, segmento, ';'))
     {
         string instruccion = segmento + ";";
-        list_de_instrucciones->add(instruccion);
+        lista_de_instrucciones->add(instruccion);
     }
 
     int scoope = 0;
 
-    for(int i=0; i < list_de_instrucciones->getSize(); i++)
+    for(int i=0; i < lista_de_instrucciones->getSize(); i++)
     {
 
-        string instruccion = list_de_instrucciones->get(i);
+        string instruccion = lista_de_instrucciones->get(i);
         S_List<string> * tokens = new S_List<string>;
 
         for(char c : instruccion)
@@ -456,6 +526,11 @@ bool readLines(string text)
         cout << "Instruccion -> [";
         cout << "\033[0;33m" + instruccion + "\033[0m";
         cout << "] : ";
+
+
+        S_List<string> * tokens_antes_de_asgnacion = new S_List<string>;
+        bool llego_al_igual = false;
+
 
         switch(readInstruction(instruccion, tokens))
         {
@@ -489,10 +564,23 @@ bool readLines(string text)
                         }
                         else
                         {
+                            Object jsonSend;
+                            jsonSend["id"] = String(tokens->get(1));
+                            jsonSend["local"] = Boolean(false);
+                            jsonSend["command"] = String("add");
                             //{"id" : "a", "value": true, "local": "false", "type" : "bool", "command" : "add"}
                             cout << ">>> Mandar JSON: {\"id\" : \"" << tokens->get(1)<< "\", " << "\"value\"" << " : \"" << 0 << "\", \"local\" : \"false\", \"type\" : \"" << tokens->get(0) << "\", \"command\" : \"add\"}"<<endl;
+                            if(tokens->get(0) == "int" | tokens->get(0) == "float" |  tokens->get(0) == "long" | tokens->get(0) == "double"){
+                                jsonSend["type"] = String(tokens->get(0));
+                                jsonSend["value"] = Number(0);
+                            }
+                            if(tokens->get(0) == "char" | tokens->get(0) == "string"){
+                                jsonSend["type"] = String(tokens->get(0));
+                                jsonSend["value"] = String(" ");
+                            }
+                            Writer::Write(jsonSend, ss);
+                            socketConnect(ss.str(), port);
                         }
-
                         break;
 
                     case 3:
@@ -511,6 +599,39 @@ bool readLines(string text)
                 {
                     case 3:
                         cout << ">>> Asignar el valor: " << tokens->get(2) << " a: " << tokens->get(0) << endl;
+                        Object jsonSend;
+                        jsonSend["id"] = String(tokens->get(0));
+                        jsonSend["local"] = Boolean(false);
+                        jsonSend["command"] = String("edit");
+                        Object jsonSRCH;
+                        jsonSRCH["command"] = String("srch");
+                        jsonSRCH["id"] = String(tokens->get(0));
+                        std::stringstream as;
+                        Writer::Write(jsonSRCH, as);
+                        std::string received = socketConnect(as.str(), port);
+                        std::stringstream rs;
+                        rs << received;
+                        Object jReceived;
+                        Reader::Read(jReceived, rs);
+                        String typeAux = String(jReceived["type"]);
+                        std::string type = typeAux.Value();
+                        if(type == "int" | type == "long" | type == "double"){
+                            jsonSend["type"] = String(type);
+                            jsonSend["value"] = Number(atoi(tokens->get(2).c_str()));
+                        }
+                        if(type == "float"){
+                            jsonSend["type"] = String(type);
+                            std::cout << tokens->get(2);
+                            float val = std::atof(tokens->get(2).c_str());
+                            jsonSend["value"] = Number(val);
+                        }
+                        if(type == "char" | type == "string"){
+                            jsonSend["type"] = String(type);
+                            jsonSend["value"] = String(tokens->get(2));
+                        }
+                        Writer::Write(jsonSend, ss);
+                        std::string aux = ss.str();
+                        socketConnect(aux, port);
                         break;
                     case 4:
                         if(regex_search(tokens->get(0), regex("\\*|\\&|\\+")))//Si el group solo es \s lo omite
@@ -539,6 +660,28 @@ bool readLines(string text)
                 {
                     case 4:
                         cout << ">>> Mandar JSON: { " << "\"Tipo\"" << " : " << tokens->get(0) << ", " << "\"Nombre\"" << " : " << tokens->get(1) << " }" << endl;
+                        Object jsonSend;
+                        jsonSend["id"] = String(tokens->get(1));
+                        jsonSend["local"] = Boolean(false);
+                        jsonSend["command"] = String("add");
+                        //{"id" : "a", "value": true, "local": "false", "type" : "bool", "command" : "add"}
+                        if(tokens->get(0) == "int" | tokens->get(0) == "long" | tokens->get(0) == "double"){
+                            jsonSend["type"] = String(tokens->get(0));
+                            jsonSend["value"] = Number(atoi(tokens->get(3).c_str()));
+                        }
+                        if(tokens->get(0) == "float"){
+                            jsonSend["type"] = String(tokens->get(0));
+                            std::cout << tokens->get(3);
+                            float val = std::atof(tokens->get(3).c_str());
+                            jsonSend["value"] = Number(val);
+                        }
+                        if(tokens->get(0) == "char" | tokens->get(0) == "string"){
+                            jsonSend["type"] = String(tokens->get(0));
+                            jsonSend["value"] = String(tokens->get(3));
+                        }
+                        Writer::Write(jsonSend, ss);
+                        std::string auxsend = ss.str();
+                        socketConnect(ss.str(), port);
                         break;
                     case 5:
                         cout << ">>> Mandar JSON: { " << "\"Tipo\"" << " : " << tokens->get(0) << tokens->get(1) << ", " << "\"Nombre\"" << " : " << tokens->get(2) << " }" << endl;
@@ -575,7 +718,20 @@ bool readLines(string text)
 
             case 5:
                 cout << "Declaracion-Asignacion con Operacion" << endl;
-                switch(tokens->getSize())
+                tokens_antes_de_asgnacion->delAll();
+                llego_al_igual = false;
+                for(int i=0; i < tokens->getSize(); i++)
+                {
+                    if(tokens->get(i) == "=")
+                    {
+                        llego_al_igual = true;
+                    }
+                    if(!llego_al_igual)
+                    {
+                        tokens_antes_de_asgnacion->add(tokens->get(i));
+                    }
+                }
+                switch(tokens_antes_de_asgnacion->getSize())
                 {
                     case 2:
                         //cout << "{ " << "\"Tipo\"" << " : " << tokens->get(0) << ", " << "\"Nombre\"" << " : " << tokens->get(1) << " }" << endl;
@@ -615,14 +771,49 @@ bool readLines(string text)
                 cout << "stdout" << endl;
                 switch(tokens->getSize())
                 {
-                    case 2:
-                        cout << "\033[0;35m" + (string)tokens->get(1) + "\033[0m\n" << endl;
+                    case 3:
+                        if(regex_search(tokens->get(2), regex("\"")))
+                        {
+                            string s = regex_replace(tokens->get(2), regex("\""), "");
+                            cout << "\033[0;35m" + s + "\033[0m\n" << endl;
+                        }
+                        else
+                        {
+                            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                            cout << "\033[0;35mValor de: " + tokens->get(2) + "\033[0m\n" << endl;
+                        }
+
                         break;
                     default:
                         break;
                 }
                 break;
 
+            case 8:
+                cout << "getAddr()" << endl;
+                switch(tokens->getSize())
+                {
+                    case 3:
+                        cout << "\033[0;36m>>>retornar reference<type> de : " + tokens->get(2) + "\033[0m\n" << endl;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+
+            case 9:
+                cout << "getValue()" << endl;
+                switch(tokens->getSize())
+                {
+                    case 3:
+                        cout << "\033[0;36m>>>retornar el valor al que hace referencia: " + tokens->get(2) + "\033[0m\n" << endl;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
 
             default:
                 cout << "\033[0;31mC mamo :v (Oasease, Error de Syntaxis)\033[0m\n" << endl;
@@ -655,7 +846,7 @@ void extraerString(string s, string * array, regex r)
 
 string sin_espacios_innecesarios(string str)
 {
-    return regex_replace(str, rgx_arreglar_espaciado, "");
+    return regex_replace(str, rgx_arreglar_espaciado, " ");
 }
 
 
@@ -750,7 +941,7 @@ void readCode(string code)
 
     procesar_structs(&_code);
     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-    cout << "\033[0;32m::Structs::\033[0m\n" << endl;
+    cout << "\033[0;32m.:Structs:.\033[0m\n" << endl;
     printStructs();
     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
 
@@ -764,38 +955,42 @@ void readCode(string code)
     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
     if(procesar_Scoopes(_code))
     {
-        cout << "\033[0;32m::Scoopes::\033[0m\n" << endl;
+        cout << "\033[0;32m.:Scoopes:.\033[0m\n" << endl;
         printScoopes();
     }
     else
     {
         cout << "\033[0;31mError: Scoope sin cerrar :v\033[0m\n" << endl;
+        cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << "\033[0;31m.:Not C1:.\033[0m" << endl;
+        cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
+        return;
     }
     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
 
 
     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
     cout << "\033[0;32m::_code::\033[0m\n" << endl;
-    //_code = regex_replace(_code, regex("\\{|\\}"), "");
     _code = sin_espacios_innecesarios(_code);
+    _code = regex_replace(_code, regex("\\;\\s*"), ";");
     cout << "(Para revision de Syntaxis)\n" << _code << endl;
     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
 
 
 
     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-    cout << "\033[0;32m::Lectura de lineas::\033[0m\n" << endl;
+    cout << "\033[0;32m.:Lectura de lineas:.\033[0m\n" << endl;
 
     if(readLines(_code))
     {
         cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-        cout << "\033[0;34m::C!::\033[0m" << endl;
+        cout << "\033[0;34m.:C!:.\033[0m" << endl;
         cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
     }
     else
     {
         cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-        cout << "\033[0;31m::Not C1::\033[0m" << endl;
+        cout << "\033[0;31m.:Not C1:.\033[0m" << endl;
         cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
     }
     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
@@ -809,58 +1004,119 @@ int main()
 {
     string text =
             "int a;"
+            "reference<int> aa;"
+            "reference<int> aaa = 100;"
+            "a = 2*a;"
             "{"
             "   {"
-            "       int b;"
+            "       int b = 1;"
             "       {"
             "           int c;"
             "           int d;"
-            "           ++c;"
+            "           ++"
+                    ""
+                    ""
+                    ""
+                    ""
+                    "\nc;"
             "           {"
             "               int e;"
             "           }"
             "           int f;"
             "       }"
-            "       int g;"
+                    "\n"
+            "       int"
+                    " g;"
             "       {"
             "           {"
             "               {"
-            "                   int h;"
+            "                   int h ; "
             "                   {"
-            "                       int i;"
-            "                       int ii;"
+            "                       int i "
+                    " "
+                    " "
+                    " "
+                    " ;     "
+            "                       int ii ;    "
             "                       {"
             "                           {"
             "                               int iii;"
-            "                               struct Book"
+            "                               struct "
+                    "Book"
             "                               {"
             "                                   int waca;"
-            "                               }book1,book2;"
+            "                               }book1,"
+                    "book2; "
             "                           }"
             "                       }"
             "                   }"
-            "                   int j;"
-            "               }"
-            "               int k;"
-            "               struct Pokemon"
+            "                   int j "
+                    "; "
+                    "Hable("
+                    " j"
+                    " "
+                    ");"
+            "               } "
+                    "getAddr(a);"
+            "               int "
+                    "k;"
+            "               struct "
+                    "Pokemon"
             "               {"
-            "                   int maia;"
-            "               }rata1;"
+            "                   int "
+                    "maia;"
+            "               }r1;getValue( k ) ; getValue( aa"
+                    ");"
             "           }"
             "           int l;"
+            "           Hable(\"LALALALALLALALALALALA\");"
             "       }"
-            "       char ** m;"
+            "       reference<char> m;"
             "   }"
             "   int n;"
             "}"
             "int o;"
             "{"
             "   int x;"
-            "   int y;"
+            "   int y = a + 3 * 2 / 1;"
             "   int z;"
-            "   Hable(\"ASDFGHJKLLKJHGFDS\");"
+            "   z = a + 1 + 1 + 1 + 1;"
+            "   Hable(\"Holiwis\") ; "
             "}"
             ;
-    readCode(text);
+
+    string text2  =
+            "int c = a + b   ;  c =  a + b ;      ";
+
+
+    string text3  =
+            "int a = 500;\n"
+            "char c =  'x';\n"
+            "struct A\n"
+            "{\n"
+            "\tint x1;\n"
+            "\tint y1;\n"
+            "}claseA;\n"
+    ;
+
+
+    readCode(text3);
+
+
+
     //string i = "123456789098765432";
+
+
+    /*
+    string str = "2.5";
+    smatch sm;regex_match(str, sm, regex("\\s*(\\d+)\\.(\\d+)"));
+    float f
+        cout << "C: " << (float)(atoi(((string)sm[1]).c_str()) + ((float)atoi(((string)sm[2]).c_str())/10) ) << endl;
+
+    */
+
+
+
+
+
 }

@@ -60,15 +60,15 @@ include CMakeFiles/Proyecto_1_v0.dir/flags.make
 CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.o: CMakeFiles/Proyecto_1_v0.dir/flags.make
 CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.o: ../source/memBlock.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/loop/CLionProjects/Proyecto_1_v0/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.o -c /home/loop/CLionProjects/Proyecto_1_v0/source/memBlock.cpp
+	/usr/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.o -c /home/loop/CLionProjects/Proyecto_1_v0/source/memBlock.cpp
 
 CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/loop/CLionProjects/Proyecto_1_v0/source/memBlock.cpp > CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.i
+	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/loop/CLionProjects/Proyecto_1_v0/source/memBlock.cpp > CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.i
 
 CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/loop/CLionProjects/Proyecto_1_v0/source/memBlock.cpp -o CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.s
+	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/loop/CLionProjects/Proyecto_1_v0/source/memBlock.cpp -o CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.s
 
 CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.o.requires:
 
@@ -84,15 +84,15 @@ CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.o.provides.build: CMakeFiles/Pr
 CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.o: CMakeFiles/Proyecto_1_v0.dir/flags.make
 CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.o: ../sintaxys/mainS.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/loop/CLionProjects/Proyecto_1_v0/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.o -c /home/loop/CLionProjects/Proyecto_1_v0/sintaxys/mainS.cpp
+	/usr/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.o -c /home/loop/CLionProjects/Proyecto_1_v0/sintaxys/mainS.cpp
 
 CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/loop/CLionProjects/Proyecto_1_v0/sintaxys/mainS.cpp > CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.i
+	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/loop/CLionProjects/Proyecto_1_v0/sintaxys/mainS.cpp > CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.i
 
 CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/loop/CLionProjects/Proyecto_1_v0/sintaxys/mainS.cpp -o CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.s
+	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/loop/CLionProjects/Proyecto_1_v0/sintaxys/mainS.cpp -o CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.s
 
 CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.o.requires:
 
@@ -108,15 +108,15 @@ CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.o.provides.build: CMakeFiles/Pro
 CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.o: CMakeFiles/Proyecto_1_v0.dir/flags.make
 CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.o: ../source/Scoope.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/loop/CLionProjects/Proyecto_1_v0/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.o -c /home/loop/CLionProjects/Proyecto_1_v0/source/Scoope.cpp
+	/usr/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.o -c /home/loop/CLionProjects/Proyecto_1_v0/source/Scoope.cpp
 
 CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/loop/CLionProjects/Proyecto_1_v0/source/Scoope.cpp > CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.i
+	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/loop/CLionProjects/Proyecto_1_v0/source/Scoope.cpp > CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.i
 
 CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/loop/CLionProjects/Proyecto_1_v0/source/Scoope.cpp -o CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.s
+	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/loop/CLionProjects/Proyecto_1_v0/source/Scoope.cpp -o CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.s
 
 CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.o.requires:
 
@@ -132,15 +132,15 @@ CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.o.provides.build: CMakeFiles/Proy
 CMakeFiles/Proyecto_1_v0.dir/main.cpp.o: CMakeFiles/Proyecto_1_v0.dir/flags.make
 CMakeFiles/Proyecto_1_v0.dir/main.cpp.o: ../main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/loop/CLionProjects/Proyecto_1_v0/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Proyecto_1_v0.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Proyecto_1_v0.dir/main.cpp.o -c /home/loop/CLionProjects/Proyecto_1_v0/main.cpp
+	/usr/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Proyecto_1_v0.dir/main.cpp.o -c /home/loop/CLionProjects/Proyecto_1_v0/main.cpp
 
 CMakeFiles/Proyecto_1_v0.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Proyecto_1_v0.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/loop/CLionProjects/Proyecto_1_v0/main.cpp > CMakeFiles/Proyecto_1_v0.dir/main.cpp.i
+	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/loop/CLionProjects/Proyecto_1_v0/main.cpp > CMakeFiles/Proyecto_1_v0.dir/main.cpp.i
 
 CMakeFiles/Proyecto_1_v0.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Proyecto_1_v0.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/loop/CLionProjects/Proyecto_1_v0/main.cpp -o CMakeFiles/Proyecto_1_v0.dir/main.cpp.s
+	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/loop/CLionProjects/Proyecto_1_v0/main.cpp -o CMakeFiles/Proyecto_1_v0.dir/main.cpp.s
 
 CMakeFiles/Proyecto_1_v0.dir/main.cpp.o.requires:
 

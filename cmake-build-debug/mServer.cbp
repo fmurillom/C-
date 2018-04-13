@@ -84,6 +84,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/loop/CLionProjects/Proyecto_1_v0/includes/Parser.h">
+			<Option target="Proyecto_1_v0"/>
+		</Unit>
 		<Unit filename="/home/loop/CLionProjects/Proyecto_1_v0/includes/S_List.h">
 			<Option target="Proyecto_1_v0"/>
 		</Unit>

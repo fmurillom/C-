@@ -351,12 +351,9 @@ public:
     }
 
 
-
     Node<T>* p;
     Node<T>* u;
     int cantidad;
-
-
 
 };
 
