@@ -6,6 +6,33 @@
 
 
 using namespace std;
+/*
+         foreground background
+black        30         40
+red          31         41
+green        32         42
+yellow       33         43
+blue         34         44
+magenta      35         45
+cyan         36         46
+white        37         47
+
+Example cout << "\033[11;31mbold red text\033[0m\n";
+
+reset             0  (everything back to normal)
+bold/bright       1  (often a brighter shade of the same colour)
+underline         4
+inverse           7  (swap foreground and background colours)
+bold/bright off  21
+underline off    24
+inverse off      27
+
+*/
+
+
+
+
+
 //string const ptrn_signos = "=(?!.*?[\\-]{2})(?!.*?[\\+]{2})[\\+\\-\\s]*";//patron de +'s y -'s exectuando 2 +'s seguidos o 2 -'s seguidos
 //string const ptrn_asignacionGeneral_v0 =                "^\\s*((?!.*?[\\&]{2})[^\\s0-9{int}{long}{char}{float}{double}]*)\\s*((?!(int|long|char|float|doble)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&]*)\\s*(=)\\s*(\\d+|\\'.\\'|\\\".[^\\\"]*\\\"|\\\"\\\"|\\d+\\.\\d+|((?!.*?[\\&]{2})[^\\s0-9]*)(?!(int|long|char|float|double)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&\\']*)\\s*\\;";
 //regex const rgx_AG_v0(ptrn_asignacionGeneral_v0);
@@ -17,7 +44,12 @@ string const ptrn_weas_v                    =           "\\s*((?:[\\+]{2}\\s*|[\
 string const ptrn_struct                    =           "(?:(struct)\\s*([A-z][A-z\\d\\_]*)\\s*(\\{)\\s*((?![\\{\\}])\\s*(?:[^\\{\\}]|\\s)+)\\s*(\\})\\s*((?:[A-z][A-z\\d\\_]*\\s*\\,?\\s*)*\\s*\\;))";
 regex const rgx_struct_v0(ptrn_struct);
 string const ptrn_hmmm                      =           "(\\{)\\s*((?![\\{\\}])\\s*(?:[^\\{\\}]|\\s)+)\\s*(\\})";
+string const ptrn_print                     =           "\\s*(Hable)\\(\\\"([^\\\"]*)\\\"\\)\\s*\\;";
+regex const rgx_print_v0(ptrn_print);
 
+
+regex const rgx_arreglar_espaciado_llaves = regex("\\s{2,}|\\{|\\}");//Dos o mas espacios juntos o las llaves
+regex const rgx_arreglar_espaciado = regex("\\s{2,}");//Dos o mas espacios juntos o las llaves
 
 
 
@@ -34,7 +66,7 @@ string const ptrn_asignacionGeneral_v2 =                "^\\s*((?!.*?[\\&]{2})[^
 regex const rgx_AG_v2(ptrn_asignacionGeneral_v2);
 
 
-string const ptrn_declaracion_AsignacionGeneral_v2 =    "\\s*(int|long|char|float|double)(?:\\s*(\\*+)\\s*|(\\*+)\\s*|\\s*(\\*+)|(\\s+))((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&]*)\\s*(=)\\s*(?:(\\d+)|(\\'.\\')|(\\\".[^\\\"]*\\\")|(\\\"\\\")|(\\d+\\.\\d+)|((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*\\;";
+string const ptrn_declaracion_AsignacionGeneral_v2 =    "\\s*(int|long|char|float|double)(?:\\s*(\\*+)\\s*|(\\*+)\\s*|\\s*(\\*+)|(\\s+))((?!(int|long|char|float|double|struct)[\\;|\\s])[A-z]+[^\\s\\*\\.\\-\\/\\+\\&]*)\\s*(=)\\s*(?:(\\d+)|(\\'.\\')|(\\\".[^\\\"]*\\\")|(\\\"\\\")|(\\d+\\.\\d+)|((?!.*?[\\&]{2})[\\*\\&]*)\\s*((?!(int|long|char|float|double)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*\\;";
 regex const rgx_DAG_v1(ptrn_declaracion_AsignacionGeneral_v2);
 
 
@@ -55,6 +87,7 @@ regex const rgx_OV_v0(ptrn_operador_variable_v0);
 
 //Globales
 S_List<Scoope> * VG_scoopes = new S_List<Scoope>;
+S_List<S_List<string>> * VG_structs = new S_List<S_List<string>>;
 
 
 
@@ -82,26 +115,11 @@ char getTypeDataDeclaration(std::string instruccion)
 void getTokens(smatch groups, S_List<string> *tokens)
 {
     for(string i : groups)
-    {
         if(!regex_match(i, regex("\\s*")))//Si el group solo es \s lo omite
-        {
-            //i = regex_replace(i, regex("\\s"), "");//Borra los espacios innecesarios
             if(i != groups[0])
-            {
                 tokens->add(i);
-            }
-        }
-    }
-    /*
-    if(regex_search(tokens->getLast()->data, regex(regex("[\\&\\*]"))))//Esto arregla los grupos si el ultimo es un puntero
-    {
-        string ultimo = tokens->getLast()->data;
-        string penultimo = tokens->get(tokens->getSize()-2);
-        tokens->edit(ultimo, tokens->getSize()-2);
-        tokens->edit(regex_replace(penultimo, regex("[\\&\\*]"), ""), tokens->getSize()-1);
-    }
-    */
 }
+
 void eliminarEspacios(S_List<string> *tokens)
 {
     for(int i=0; i < tokens->getSize(); i++)
@@ -113,9 +131,7 @@ void eliminarEspacios(S_List<string> *tokens)
             tokens->edit(s, i);
         }
         else
-        {
             tokens->del(i);
-        }
     }
 }
 bool getTokensOperacion(string str, S_List<string> *tokens)
@@ -124,24 +140,15 @@ bool getTokensOperacion(string str, S_List<string> *tokens)
     int cantidad_a_cortar = 0;
     if(regex_search(str, groups, rgx_OA_v2))
     {
-        //cout << "str: [" << str << "]" << endl;
         for(int x=0; x < groups.size(); x++)
         {
             string i = groups[x];
             if(x==0)
-            {
                 cantidad_a_cortar += i.length();
-            }
-            //cout << "   i: [" << i << "]" << endl;
             if(!regex_match(i, regex("\\s*")))//Si el group solo es \s lo omite
-            {
-                //i = regex_replace(i, regex("\\s"), "");//Borra los espacios innecesarios
                 if(x!=0)
                     tokens->add(i);
-            }
         }
-        //tokens->add(":v");
-        //cout << "cantidad a cortar: " << cantidad_a_cortar << endl;
         str = str.substr(cantidad_a_cortar, str.size());
     }
     while(str != ";" && str != "")
@@ -149,24 +156,15 @@ bool getTokensOperacion(string str, S_List<string> *tokens)
         cantidad_a_cortar = 0;
         if(regex_search(str, groups, rgx_OV_v0) || regex_search(str, groups, regex("\\s*(?:([\\+\\-\\*\\/]|(?:[\\+\\-]\\s+(?![\\+\\-]{2}))*(?:[\\+\\-](?![\\+\\-]{2}))|\\-\\+|\\+\\-|\\/\\+|\\/\\-|\\*\\+|\\*\\-|\\%|(?:\\+\\-\\s*)*(?:\\+\\-))([\\+\\-])?\\s*(?:(?:(?:(?![\\*\\&\\s]*?[\\&]{2})[\\*\\&\\s]*)\\s*((?!(int|long|char|float|double|struct)[\\;|\\s])[A-z]+[A-z\\d\\_]*))\\s*([\\+]{2}|[\\-]{2})\\s*|(\\d+)))\\s*")))
         {
-            //cout << "str: [" << str << "]" << endl;
             for(int x=0; x < groups.size(); x++)
             {
                 string i = groups[x];
                 if(x==0)
-                {
                     cantidad_a_cortar += i.length();
-                }
-                //cout << "   i: [" << i << "]" << endl;
                 if(!regex_match(i, regex("\\s*")))//Si el group solo es \s lo omite
-                {
-                    //i = regex_replace(i, regex("\\s"), "");//Borra los espacios innecesarios
                     if(x!=0)
                         tokens->add(i);
-                }
             }
-            //tokens->add(":v");
-            //cout << "cantidad a cortar: " << cantidad_a_cortar << endl;
             str = str.substr(cantidad_a_cortar, str.size());
         }
         else
@@ -178,7 +176,6 @@ bool getTokensOperacion(string str, S_List<string> *tokens)
     }
     eliminarEspacios(tokens);
     return true;
-    //tokens->show2ln();
 }
 
 S_List<string> * parsear(string str, char c)
@@ -202,21 +199,18 @@ int readInstruction(string instruccion, S_List<string> * tokens)
     //4 = Asignacion con operacion
     //5 = Declaracion-Asignacion con operacion
     //6 = Operacion
+    //7 = print
 
     smatch groups;
-    //S_List<string> *tokens = new S_List<string>;
     if(regex_match(instruccion, groups, rgx_DG))//Declaracion
     {
         getTokens(groups, tokens);
         eliminarEspacios(tokens);
-        //cout << "Declaracion" << endl;
         return 1;
     }
     else if(regex_match(instruccion, groups, rgx_DAG_v1))//Asignacion Declaracion
     {
         getTokens(groups, tokens);
-        //cout << "Declaracion-Asignacion" << endl;
-
         S_List<string> *declaration_tokens = new S_List<string>;
         S_List<string> *asignation_tokens = new S_List<string>;
 
@@ -231,11 +225,6 @@ int readInstruction(string instruccion, S_List<string> * tokens)
             else
                 declaration_tokens->add(s);
         }
-        //cout << "Declaration Tokens: " << endl;
-        //declaration_tokens->show2ln();
-        //cout << "Asignation Tokens: " << endl;
-        //asignation_tokens->show2ln();
-
         for(int i=0; i < asignation_tokens->getSize(); i++)
             declaration_tokens->add(asignation_tokens->get(i));
         tokens = declaration_tokens;
@@ -244,12 +233,7 @@ int readInstruction(string instruccion, S_List<string> * tokens)
     else if(regex_match(instruccion, groups, rgx_AG_v1))//Asignacion simple
     {
         getTokens(groups, tokens);
-        //cout << "Asignacion" << endl;
         return 2;
-//        if(regex_search(instruccion, groups, rgx_OA_v1))
-//        {
-//            cout << "con Operacion" << endl;
-//        }
     }
     else if(regex_search(instruccion, regex("\\=|\\+\\=|\\-\\=")))//Asignacion con operacion
     {
@@ -268,8 +252,6 @@ int readInstruction(string instruccion, S_List<string> * tokens)
         if(regex_match(antes_de, grupos_antes_de, regex(ptrn_weas_v)))
         {
             getTokens(grupos_antes_de, tokens_antes_de);
-            //cout << "tokens_antes_de->show2ln(): ";
-            //tokens_antes_de->show2ln();
         }
         else
         {
@@ -278,8 +260,6 @@ int readInstruction(string instruccion, S_List<string> * tokens)
             {
                 getTokens(grupos_antes_de, tokens_antes_de);
                 return 5;
-                //cout << "tokens_antes_de->show2ln(): ";
-                //tokens_antes_de->show2ln();
             }
             else
             {
@@ -314,47 +294,118 @@ int readInstruction(string instruccion, S_List<string> * tokens)
         //cout << "Operacion" << endl;
         return 6;
     }
+    else if(regex_search(instruccion, groups, rgx_print_v0))
+    {
+        getTokens(groups, tokens);
+        return 7;
+    }
     else
     {
         return -1;
     }
-    cout << "Tokens: " << endl;
-    tokens->show2ln();
-    cout << "tokens->getSize(): " << tokens->getSize() << endl;
-    return true;
+}
+
+void printStructs()
+{
+    for(int i=0; i < VG_structs->getSize(); i++)
+    {
+        S_List<string> tokens_struct = VG_structs->get(i);
+        cout << "Struct: ";tokens_struct.show2ln();
+    }
 }
 
 void printScoopes()
 {
     for(int i=0; i < VG_scoopes->getSize(); i++)
-    {
         cout << "Scoope: " << VG_scoopes->get(i).getString() << endl;
-    }
 }
 
-void readCode(string text)
+S_List<string> * getScoopeVariables(Scoope scoope)
+{
+    S_List<string> * ids = new S_List<string>;
+
+    string lines = scoope.lineas;
+
+    string segmento;
+    stringstream stringstream(lines);
+    S_List<string> *lista_de_instrucciones = new S_List<string>;
+    while(std::getline(stringstream, segmento, ';'))
+    {
+        string instruccion = segmento + ";";
+        lista_de_instrucciones->add(instruccion);
+    }
+
+    for(int i=0; i < lista_de_instrucciones->getSize(); i++)
+    {
+
+        string instruccion = lista_de_instrucciones->get(i);
+        S_List<string> * tokens = new S_List<string>;
+
+        switch(readInstruction(instruccion, tokens))
+        {
+            case 1://Declaracion
+                switch(tokens->getSize())
+                {
+                    case 2:
+                        ids->add(tokens->get(1));
+                        break;
+
+                    case 3:
+                        ids->add(tokens->get(2));
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+
+            case 3:
+                switch(tokens->getSize())
+                {
+                    case 4:
+                        ids->add(tokens->get(1));
+                        break;
+                    case 5:
+                        ids->add(tokens->get(2));
+                        break;
+                    case 6:
+                        //cout << "{ " << "\"Tipo\"" << " : " << tokens->get(1) << tokens->get(2) << ", " << "\"Nombre\"" << " : " << tokens->get(3) << " }" << endl;
+                        break;
+                    default:
+                        //cout << "{Default}" << endl;
+                        break;
+                }
+                break;
+
+
+            case 5:
+                switch(tokens->getSize())
+                {
+                    case 2:
+                        //cout << "{ " << "\"Tipo\"" << " : " << tokens->get(0) << ", " << "\"Nombre\"" << " : " << tokens->get(1) << " }" << endl;
+                        break;
+                    case 3:
+                        //cout << "{ " << "\"Tipo\"" << " : " << tokens->get(0) << tokens->get(1) << ", " << "\"Nombre\"" << " : " << tokens->get(2) << " }" << endl;
+                        break;
+                    case 4:
+                        //cout << "{ " << "\"Tipo\"" << " : " << tokens->get(1) << tokens->get(2) << ", " << "\"Nombre\"" << " : " << tokens->get(3) << " }" << endl;
+                        break;
+                    default:
+                        //cout << "{Default}" << endl;
+                        break;
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+    return ids;
+}
+
+bool readLines(string text)
 {
     //Sacar lista de orden de declaraciones
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     S_List<S_List<string>> * matriz_de_tokens = new S_List<S_List<string>>;
 
     int numero_de_linea = 0;
@@ -367,17 +418,45 @@ void readCode(string text)
     {
         string instruccion = segmento + ";";
         list_de_instrucciones->add(instruccion);
-        cout << instruccion << endl;
     }
-    //list_de_instrucciones->show2ln();
-    //cout<< "_________________________________\n" <<endl;
+
+    int scoope = 0;
+
     for(int i=0; i < list_de_instrucciones->getSize(); i++)
     {
 
         string instruccion = list_de_instrucciones->get(i);
         S_List<string> * tokens = new S_List<string>;
 
-        cout << "Instruccion: ";
+        for(char c : instruccion)
+        {
+            if(c == '}')
+            {
+                cout << "\033[0;33mCerrar Scoope: " + to_string(scoope) + "\033[0m" << endl;
+                S_List<string> * variables_q_pueden_matarse = new S_List<string>;
+                variables_q_pueden_matarse = getScoopeVariables(VG_scoopes->get(scoope));
+                variables_q_pueden_matarse->show2ln();
+
+                scoope++;
+            }
+            if(c == '\n')
+            {
+                numero_de_linea++;
+            }
+        }
+        string _instruccion = instruccion;
+        instruccion = regex_replace(instruccion, regex("\\{|\\}"), "");
+        if(instruccion == ";" && _instruccion != instruccion)
+        {
+            cout << "_______________________________________________________________________________________________________________________________\n\n\n" << endl;
+            break;
+        }
+
+
+        cout << "Instruccion -> [";
+        cout << "\033[0;33m" + instruccion + "\033[0m";
+        cout << "] : ";
+
         switch(readInstruction(instruccion, tokens))
         {
 
@@ -386,11 +465,38 @@ void readCode(string text)
                 switch(tokens->getSize())
                 {
                     case 2:
-                        cout <<">>> Mandar JSON: {\"Tipo\" : "<<tokens->get(0)<<" , "<<"\"Nombre\""<<" : "<<tokens->get(1)<<" }"<<endl;
+                        if(tokens->get(0) == "struct")
+                        {
+                            string nombre_del_struct = tokens->get(1);
+                            bool existe_este_struct = false;
+                            for(int i=0; i < VG_structs->getSize(); i++)
+                            {
+                                S_List<string> tokens_struct = VG_structs->get(i);
+                                if(nombre_del_struct == tokens_struct.get(1))
+                                {
+                                    existe_este_struct = true;
+                                }
+                            }
+                            if(existe_este_struct)
+                            {
+                                cout << ">>> Hacer lo q sea q deba hacer cuando hay un struct :v"<<endl;
+                            }
+                            else
+                            {
+                                cout << "\033[0;31mError: Struct " + nombre_del_struct + " indefinido :v\033[0m\n" << endl;
+                            }
+
+                        }
+                        else
+                        {
+                            //{"id" : "a", "value": true, "local": "false", "type" : "bool", "command" : "add"}
+                            cout << ">>> Mandar JSON: {\"id\" : \"" << tokens->get(1)<< "\", " << "\"value\"" << " : \"" << 0 << "\", \"local\" : \"false\", \"type\" : \"" << tokens->get(0) << "\", \"command\" : \"add\"}"<<endl;
+                        }
+
                         break;
 
                     case 3:
-                        cout << ">>> Mandar JSON: { " << "\"Tipo\"" << " : " << tokens->get(0) << tokens->get(1) << ", " << "\"Nombre\"" << " : " << tokens->get(2) << " }" << endl;
+                        cout << ">>> Mandar JSON: {\"id\" : \"" << tokens->get(2)<< "\", " << "\"value\"" << " : \"" << 0 << "\", \"local\" : \"false\", \"type\" : \"" << tokens->get(0) << tokens->get(1) << "\", \"command\" : \"add\"}"<<endl;
                         break;
 
                     default:
@@ -505,21 +611,34 @@ void readCode(string text)
                 }
                 break;
 
-            default:
-                cout << "C mamo :v (Oasease, Error de Syntaxis)" << endl;
+            case 7:
+                cout << "stdout" << endl;
+                switch(tokens->getSize())
+                {
+                    case 2:
+                        cout << "\033[0;35m" + (string)tokens->get(1) + "\033[0m\n" << endl;
+                        break;
+                    default:
+                        break;
+                }
                 break;
+
+
+            default:
+                cout << "\033[0;31mC mamo :v (Oasease, Error de Syntaxis)\033[0m\n" << endl;
+                return false;
         }
-        tokens->show2ln();
         matriz_de_tokens->add(*tokens);
+        tokens->show2ln();
         cout << "tokens->getSize(): " << tokens->getSize() << endl;
-        cout << "_____________________________________________________________________________________________\n\n" << endl;
-
-        for(int i=0; i < matriz_de_tokens->getSize(); i++)
-        {
-            matriz_de_tokens->get(i).show2ln();
-        }
-
+        cout << "_______________________________________________________________________________________________________________________________\n\n\n" << endl;
     }
+    cout << "\033[0;33mCerrar Scoope: " + to_string(scoope) + "\033[0m" << endl;
+    S_List<string> * variables_q_pueden_matarse = new S_List<string>;
+    variables_q_pueden_matarse = getScoopeVariables(VG_scoopes->get(scoope));
+    variables_q_pueden_matarse->show2ln();
+    cout << "_______________________________________________________________________________________________________________________________\n\n\n" << endl;
+    return true;
 }
 
 void extraerString(string s, string * array, regex r)
@@ -534,10 +653,161 @@ void extraerString(string s, string * array, regex r)
 
 }
 
+string sin_espacios_innecesarios(string str)
+{
+    return regex_replace(str, rgx_arreglar_espaciado, "");
+}
+
+
+void procesar_structs(string * code)
+{
+    //por si acaso
+    VG_structs->delAll();
+
+
+    *code = sin_espacios_innecesarios(*code);
+    smatch grupishos;
+
+
+    while(regex_search(*code, grupishos, rgx_struct_v0))
+    {
+        //cout <<  "code:" << *code << endl;
+        //cout << "_____________________________________________________________________________________________" << endl;
+
+
+        S_List<string> *tokens_struct = new S_List<string>;
+        tokens_struct->add(grupishos[1]);//struct
+        tokens_struct->add(grupishos[2]);//Nombre
+        tokens_struct->add(grupishos[3]);//{
+        tokens_struct->add(sin_espacios_innecesarios(grupishos[4]));//Lineas
+        tokens_struct->add(grupishos[5]);//}
+        tokens_struct->add(grupishos[6]);//variables y ;
+
+
+        *code = (*code).substr(0, grupishos.position(0)) + ((string)grupishos[1] + " " + (string)grupishos[2] + ";") + (*code).substr(grupishos.position(0) + grupishos[0].length(), (*code).size());
+        //*code = regex_replace(*code, rgx_struct_v0, ((string)grupishos[1] + " " + (string)grupishos[2] + ";"));
+        VG_structs->add(*tokens_struct);
+    }
+}
+
+
+
+
+
+bool procesar_Scoopes(string code)
+{
+    //por si acaso
+    VG_scoopes->delAll();
+
+    int cantidad_llaves_abiertas = 0;
+    int cantidad_llaves_cerradas = 0;
+
+    for(char c : code)
+    {
+        if(c == '{')
+            cantidad_llaves_abiertas++;
+        if(c == '}')
+            cantidad_llaves_cerradas++;
+    }
+    if(cantidad_llaves_abiertas != cantidad_llaves_cerradas)
+        return false;
+
+    smatch grupishos;
+    regex rgx_llaves_v0("(\\{)\\s*[^\\{\\}]*\\s*(\\})");
+    regex rgx_llaves_v1("(\\{)\\s*([^\\{\\}]*)\\s*(\\})");
+    regex rgx_arreglar_espaciado_scoope_v0 = regex("(\\{)(\\s*)([\\n\\s\\t]*|.*)(\\;)(\\s*)(\\})");
+
+    while(regex_search(code, grupishos, rgx_llaves_v1))
+    {
+        int profundidad = 0;
+        string code_hasta_scoope = code.substr(0, grupishos.position(2));
+
+        for(char c : code_hasta_scoope)
+            if(c == '{')
+                profundidad++;
+
+        string partes[2];
+        extraerString(code, partes, rgx_llaves_v0);
+
+        smatch grupos_scoope;
+        if(regex_search(partes[1], grupos_scoope, rgx_arreglar_espaciado_scoope_v0))
+        {
+            partes[1] = regex_replace(partes[1], rgx_arreglar_espaciado_llaves, "");
+        }
+        VG_scoopes->add(*new Scoope(profundidad, partes[1]));
+        code = partes[0];
+    }
+    if(code != "")
+        VG_scoopes->add(*new Scoope(0, code));
+    return true;
+}
+
+
+
+void readCode(string code)
+{
+    string _code = code;
+
+    procesar_structs(&_code);
+    cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "\033[0;32m::Structs::\033[0m\n" << endl;
+    printStructs();
+    cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
+
+
+    cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "\033[0;32m::_code::\033[0m\n" << endl;;
+    cout << "(Para revision de Scoopes)\n" << _code << endl;
+    cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
+
+
+    cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    if(procesar_Scoopes(_code))
+    {
+        cout << "\033[0;32m::Scoopes::\033[0m\n" << endl;
+        printScoopes();
+    }
+    else
+    {
+        cout << "\033[0;31mError: Scoope sin cerrar :v\033[0m\n" << endl;
+    }
+    cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
+
+
+    cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "\033[0;32m::_code::\033[0m\n" << endl;
+    //_code = regex_replace(_code, regex("\\{|\\}"), "");
+    _code = sin_espacios_innecesarios(_code);
+    cout << "(Para revision de Syntaxis)\n" << _code << endl;
+    cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
+
+
+
+    cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "\033[0;32m::Lectura de lineas::\033[0m\n" << endl;
+
+    if(readLines(_code))
+    {
+        cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << "\033[0;34m::C!::\033[0m" << endl;
+        cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
+    }
+    else
+    {
+        cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << "\033[0;31m::Not C1::\033[0m" << endl;
+        cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
+    }
+    cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n" << endl;
+
+
+
+}
+
+
 int main()
 {
-    cout << "_____________________________________________________________________________________________" << endl;
-    string text = //"int a; {int b;{int bb;}} int c;";
+    string text =
             "int a;"
             "{"
             "   {"
@@ -545,6 +815,7 @@ int main()
             "       {"
             "           int c;"
             "           int d;"
+            "           ++c;"
             "           {"
             "               int e;"
             "           }"
@@ -561,16 +832,24 @@ int main()
             "                       {"
             "                           {"
             "                               int iii;"
+            "                               struct Book"
+            "                               {"
+            "                                   int waca;"
+            "                               }book1,book2;"
             "                           }"
             "                       }"
             "                   }"
             "                   int j;"
             "               }"
             "               int k;"
+            "               struct Pokemon"
+            "               {"
+            "                   int maia;"
+            "               }rata1;"
             "           }"
             "           int l;"
             "       }"
-            "       int m;"
+            "       char ** m;"
             "   }"
             "   int n;"
             "}"
@@ -579,284 +858,9 @@ int main()
             "   int x;"
             "   int y;"
             "   int z;"
+            "   Hable(\"ASDFGHJKLLKJHGFDS\");"
             "}"
             ;
-
-
-    string text2 =
-            "a\n"
-                    "{\n"
-                    "\t{\n"
-                    "\t\tb\n"
-                    "\t\t{\n"
-                    "\t\t\tc\n"
-                    "\t\t\td\n"
-                    "\t\t\t{\n"
-                    "\t\t\t\tstruct Books\n"
-                    "\t\t\t\t{\n"
-                    "\t\t\t\t\tint a;\n"
-                    "\t\t\t\t}a,b,c;\n"
-                    "\t\t\t\te\n"
-                    "\t\t\t}\n"
-                    "\t\t\tf\n"
-                    "\t\t}\n"
-                    "\t\tg\n"
-                    "\t\t{\n"
-                    "\t\t\t{\n"
-                    "\t\t\t\t{\n"
-                    "\t\t\t\t\th\n"
-                    "\t\t\t\t\t{\n"
-                    "\t\t\t\t\t\ti\n"
-                    "                        struct SHETS\n"
-                    "                        {\n"
-                    "                            int shet;\n"
-                    "                        }sh;\n"
-                    "\n"
-                    "\t\t\t\t\t}\n"
-                    "\t\t\t\t\tj\n"
-                    "\t\t\t\t}\n"
-                    "\t\t\t\tk\n"
-                    "\t\t\t}\n"
-                    "\t\t\tl\n"
-                    "\t\t}\n"
-                    "\t\tm\n"
-                    "\t}\n"
-                    "\tn\n"
-                    "}\n"
-                    "o";
-
-    string text3 = "int i =0;struct Books{int a;}book;float r;";
-                           //9                   29
-    //readCode(text);
-
-
-
-    string _text = text;
-    //string const ptrn_shaves = "(\\{)\\s*((?![\\{\\}])\\s*(?:[^\\{\\}]|\\s)+)\\s*(\\})";
-    smatch grupishos;
-    regex rgx("(\\{)\\s*[^\\{\\}]*\\s*(\\})");
-
-
-    cout << "Text: " << text << endl;
-    cout << "_____________________________________________________________________________________________" << endl;
-
-    while(regex_search(_text, grupishos, rgx))
-    {
-        _text = regex_replace(_text, regex("\\n|\\t|\\r"), "");
-        cout <<  "text:" << _text << endl;
-        cout << "_____________________________________________________________________________________________" << endl;
-        cout <<  "grupo:" << grupishos[0] << endl;
-
-        int profundidad = 0;
-        string segmento;
-        stringstream stringstream(_text.substr(0, grupishos.position(0)));
-        //S_List<string> *list_de_instrucciones = new S_List<string>;
-        while(std::getline(stringstream, segmento, '{'))
-        {
-            profundidad++;
-        }
-
-
-
-
-        string partes[2];
-        extraerString(_text, partes, rgx);
-        cout << "partes[0]: " << partes[0] << endl;
-        cout << "partes[1]: " << partes[1] << endl;
-
-
-
-
-        VG_scoopes->add(*new Scoope(profundidad, partes[1]));
-        _text = partes[0];
-    }
-    if(_text != "")
-    {
-        VG_scoopes->add(*new Scoope(0, _text));
-    }
-
-
-
-    cout << "_____________________________________________________________________________________________" << endl;
-    printScoopes();
-    /*
-    //string const ptrn = "(?:(struct)\\s*([A-z][A-z\\d\\_]*)\\s*(\\{)\\s*((?![\\{\\}])\\s*(?:[^\\{\\}]|\\s)+)\\s*(\\})\\s*((?:[A-z][A-z\\d\\_]*\\s*\\,?\\s*)+\\s*\\;))";
-    smatch grupishos2;
-    if(regex_search(text3, grupishos2, rgx_struct_v0))
-    {
-        //string partes[2];
-        //array[0] = s.substr(0, g.position(1)) + s.substr(g.position(g.size()-1)+1, s.size());
-        //array[1] = g[0];
-        //cout << partes[0] << endl;
-        //cout << partes[1] << endl;
-        cout << "text3: [" << text3 << "]" << endl;
-        for(string i : grupishos2)
-        {
-            cout << "i: [" << i << "]" << endl;
-        }
-
-        int index_i = grupishos2.position(0);
-        int index_f = index_i + grupishos2[0].length();
-
-        cout << "struct\ni->[" << index_i << "]\nf->[" << index_f << "]" << endl;
-        string _text3 = text3.substr(0, index_i) + text3.substr(index_f, text3.length()-1);
-        cout << "texto sin ESE struct: [" << _text3 << "]" << endl;
-        cout << "solo ESE struct: [" << text3.substr(index_i, index_f) << "]" << endl;
-    }
-    else
-    {
-        cout << "C Marmota" << endl;
-    }
-    cout << "_____________________________________________________________________________________________" << endl;
-
-    cout << "Codigo: " << text << endl;
     readCode(text);
-    cout << "_____________________________________________________________________________________________" << endl;
-
-
-    */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //readInstruction(instruccion);
-    //cout << "____________________________________" << endl;
-
-    /*
-    string instruccion = "int i=a;";
-    cout << "Instruccion: " << instruccion << endl;
-
-    /*
-    //cout << "ptrn_declaracionGeneral_v0: " << ptrn_declaracionGeneral_v0 << endl;
-
-
-    string ptrn_D_int_v0 = "\\s*int\\s+[A-z]+[^\\s]*\\s*\\;";
-    //cout << "ptrn_declaracionInt_v0: " << ptrn_D_int_v0 << endl;
-
-    string ptrn_D_long_v0 = "\\s*long\\s+[A-z]+[^\\s]*\\s*\\;";
-    //cout << "ptrn_declaracionInt_v0: " << ptrn_D_long_v0 << endl;
-
-    string ptrn_D_char_v0 = "\\s*char\\s+[A-z]+[^\\s]*\\s*\\;";
-    //cout << "ptrn_declaracionInt_v0: " << ptrn_D_char_v0 << endl;
-
-    string ptrn_D_float_v0 = "\\s*float\\s+[A-z]+[^\\s]*\\s*\\;";
-    //cout << "ptrn_declaracionInt_v0: " << ptrn_D_float_v0 << endl;
-
-    string ptrn_D_double_v0 = "\\s*double\\s+[A-z]+[^\\s]*\\s*\\;";
-    //cout << "ptrn_declaracionInt_v0: " << ptrn_D_double_v0 << endl;
-
-
-    regex regex1(ptrn_D_int_v0);
-    regex regex2(ptrn_D_long_v0);
-    regex regex3(ptrn_D_char_v0);
-    regex regex4(ptrn_D_float_v0);
-    regex regex5(ptrn_D_double_v0);
-
-
-    bool match_D = regex_match(string1, regex_DG);
-    bool match_D_int = regex_match(string1, regex1);
-    bool match_D_long = regex_match(string1, regex2);
-    bool match_D_char = regex_match(string1, regex3);
-    bool match_D_float = regex_match(string1, regex4);
-    bool match_D_double = regex_match(string1, regex5);
-
-
-    cout << "Declaracion? : " <<        (match_D? "True" : "Nope") << endl;
-    cout << "Declaracion int? : " <<    (match_D_int? "True" : "Nope") << endl;
-    cout << "Declaracion long? : " <<   (match_D_long? "True" : "Nope") << endl;
-    cout << "Declaracion char? : " <<   (match_D_char? "True" : "Nope") << endl;
-    cout << "Declaracion float? : " <<  (match_D_float? "True" : "Nope") << endl;
-    cout << "Declaracion double? : " << (match_D_double? "True" : "Nope") << endl;
-    */
-    /*
-    cout<<"is D-A: "<<          regex_match(instruccion, regex_DAG) << endl;
-    cout<<"is Asignation: "<<   regex_match(instruccion, regex_AG)  << endl;
-    cout<<"is Declaration: "<<  regex_match(instruccion, regex_DG)  << endl;
-    cout<<"getTypeDataDeclaration: "<< getTypeDataDeclaration(instruccion) <<endl;
-
-
-
-
-
-
-
-
-    cout << "\n\n\n\n\n\n" << endl;
-
-    std::stringstream test
-            (
-                "int a = 500;"
-                "char c = 'x';"
-                "a = 40;"
-                "double ****** sss;"
-            );
-
-
-
-    std::regex spli_by_rgx("()");
-    std::sregex_token_iterator iter(instruccion.begin(), instruccion.end(), spli_by_rgx, -1);
-    std::sregex_token_iterator end;
-    for ( ; iter != end; ++iter)
-        std::cout << *iter << '\n';
-
-
-
-
-/*
-    std::string s{R"(
-tХB:Username!Username@Username.tcc.domain.com Connected
-tХB:Username!Username@Username.tcc.domain.com WEBMSG #Username :this is a message
-tХB:Username!Username@Username.tcc.domain.com Status: visible
-)"};
-
-    regex rgx("WEBMSG #([a-zA-Z0-9]+) :(.*)");
-    smatch matches;
-
-    if(std::regex_search(s, matches, rgx))
-    {
-        std::cout << "Match found\n";
-
-        for (size_t i = 0; i < matches.size(); ++i)
-        {
-            std::cout << i << ": '" << matches[i].str() << "'\n";
-        }
-    } else {
-        std::cout << "Match not found\n";
-    }
-
-    return 0;
-*/
-    /*
-    for(auto i : sm)
-    {
-        cout << i << endl;
-    }
-    cout << "____________________________________" << endl;
-    */
+    //string i = "123456789098765432";
 }
