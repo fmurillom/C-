@@ -307,6 +307,15 @@ std::string memBlock::inMem(std::string id) {
         std::stringstream ss;
         JsonOut["id"] = String(id);
         JsonOut["found"] = Boolean(true);
+        if(aux->type == "str"){
+            JsonOut["value"] = String(aux->data);
+        }
+        if(aux->type == "int" | aux->type == "float" | aux->type == "double"){
+            JsonOut["value"] = Number(atoi(aux->data));
+        }
+        if(aux->type == "bool"){
+            JsonOut["value"] = Boolean((bool) aux->data);
+        }
         Writer::Write(JsonOut, ss);
         return ss.str();
     }else{

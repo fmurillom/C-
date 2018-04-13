@@ -57,7 +57,6 @@ std::string socketConnect(std::string json, int port){
         n = read(sockfd,buffer,1000000);
         if (n < 0)
             error("ERROR reading from socket");
-        std::cout << buffer << std::endl;
         close(sockfd);
         shutdown(sockfd, SHUT_WR);
         std::string sending = buffer;
@@ -85,9 +84,6 @@ C_IDE::~C_IDE()
 
 void C_IDE::createUI(){
     ui->tableWidget->setShowGrid(true);
-    ui->tableWidget->insertRow(0);
-    ui->tableWidget->setItem(0, 0, new QTableWidgetItem("Holis"));
-    ui->tableWidget->setItem(0, 1, new QTableWidgetItem("Prueaba"));
     ui->tableWidget->resizeColumnsToContents();
 }
 
