@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/loop/CLionProjects/Proyecto_1_v0/main.cpp" "/home/loop/CLionProjects/Proyecto_1_v0/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/main.cpp.o"
-  "/home/loop/CLionProjects/Proyecto_1_v0/sintaxys/mainS.cpp" "/home/loop/CLionProjects/Proyecto_1_v0/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.o"
-  "/home/loop/CLionProjects/Proyecto_1_v0/source/Scoope.cpp" "/home/loop/CLionProjects/Proyecto_1_v0/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.o"
-  "/home/loop/CLionProjects/Proyecto_1_v0/source/memBlock.cpp" "/home/loop/CLionProjects/Proyecto_1_v0/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.o"
+  "/home/fmurillom/CLionProjects/Proyecto_1_v0/mManager/main.cpp" "/home/fmurillom/CLionProjects/Proyecto_1_v0/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/mManager/main.cpp.o"
+  "/home/fmurillom/CLionProjects/Proyecto_1_v0/sintaxys/mainS.cpp" "/home/fmurillom/CLionProjects/Proyecto_1_v0/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.o"
+  "/home/fmurillom/CLionProjects/Proyecto_1_v0/source/Scoope.cpp" "/home/fmurillom/CLionProjects/Proyecto_1_v0/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.o"
+  "/home/fmurillom/CLionProjects/Proyecto_1_v0/source/memBlock.cpp" "/home/fmurillom/CLionProjects/Proyecto_1_v0/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -2,7 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.o"
   "CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.o"
   "CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.o"
-  "CMakeFiles/Proyecto_1_v0.dir/main.cpp.o"
+  "CMakeFiles/Proyecto_1_v0.dir/mManager/main.cpp.o"
   "Proyecto_1_v0.pdb"
   "Proyecto_1_v0"
 )

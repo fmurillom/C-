@@ -1,0 +1,218 @@
+\hypertarget{classS__List}{}\section{S\+\_\+\+List$<$ T $>$ Class Template Reference}
+\label{classS__List}\index{S\+\_\+\+List$<$ T $>$@{S\+\_\+\+List$<$ T $>$}}
+
+
+{\ttfamily \#include $<$S\+\_\+\+List.\+h$>$}
+
+
+
+Collaboration diagram for S\+\_\+\+List$<$ T $>$\+:
+% FIG 0
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classS__List_ac5a524eb1b1450c46573d2ecb805231b}{S\+\_\+\+List} ()
+\item 
+\hyperlink{classNode}{Node}$<$ T $>$ $\ast$ \hyperlink{classS__List_adf77c59b93bf3143085e1ee9e177ab24}{get\+First} ()
+\item 
+\hyperlink{classNode}{Node}$<$ T $>$ $\ast$ \hyperlink{classS__List_afa8690865927d7524b73695f52fbf64f}{get\+Last} ()
+\item 
+int \hyperlink{classS__List_a0f77fdfb8aba97c6c8c76e333e5be1f7}{get\+Size} ()
+\item 
+bool \hyperlink{classS__List_a151b22dfc6f5a27a7cada5f690c575ae}{is\+Empty} ()
+\item 
+void \hyperlink{classS__List_a4f7470a1fcd9194d4f6e288eb78b216e}{add} (T data)
+\item 
+void \hyperlink{classS__List_a478ebbea3bc181d5ecba4455f821e016}{add} (T data, int index)
+\item 
+void \hyperlink{classS__List_a0261777964783986a4178b91bab9827b}{edit} (T data, int index)
+\item 
+bool \hyperlink{classS__List_a9bd0b6ba960a9e4b2aad0140620d5413}{exist} (T n)
+\item 
+T \hyperlink{classS__List_a9a10fdb609a9ba2858b56563b4fbbae2}{get} (int index)
+\item 
+void \hyperlink{classS__List_aea99b3adf10b66184acf2441377c640b}{del\+First} ()
+\item 
+void \hyperlink{classS__List_abd62cb0e217f9c5c3bb735842e78abd9}{del\+Last} ()
+\item 
+void \hyperlink{classS__List_afc57146fd54607be1f8a23bd14ad4a41}{del} (int index)
+\item 
+void \hyperlink{classS__List_ab7aa70c87ffeaa60e7e909aed78c64d8}{del} (T \+\_\+data)
+\item 
+void \hyperlink{classS__List_aefc5209c854aeb3d6630561a2d4a047f}{del\+All} ()
+\item 
+void \hyperlink{classS__List_a55c3046c5a69f8d02f9142f4b1e37220}{show} ()
+\item 
+void \hyperlink{classS__List_ad8fbbf6cd698a6c8dbaaa1a32208b2e2}{showln} ()
+\item 
+void \hyperlink{classS__List_a5b949c6b65d876ff9af994d9382ed188}{show2ln} ()
+\item 
+std\+::string \hyperlink{classS__List_af16dbe30d56a18448001355a137a9c45}{get\+String} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classNode}{Node}$<$ T $>$ $\ast$ \hyperlink{classS__List_a6ce39c9245834ee31378d47f6c219539}{p}
+\item 
+\hyperlink{classNode}{Node}$<$ T $>$ $\ast$ \hyperlink{classS__List_a7b2b5b2876d0cce51d38e54097a7e9be}{u}
+\item 
+int \hyperlink{classS__List_aefafb44e41237f1c630fea024e00b44a}{cantidad}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!S\+\_\+\+List@{S\+\_\+\+List}}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{S\+\_\+\+List()}{S_List()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf S\+\_\+\+List}$<$ T $>$\+::{\bf S\+\_\+\+List} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_ac5a524eb1b1450c46573d2ecb805231b}{}\label{classS__List_ac5a524eb1b1450c46573d2ecb805231b}
+
+
+\subsection{Member Function Documentation}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!add@{add}}
+\index{add@{add}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{add(\+T data)}{add(T data)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf S\+\_\+\+List}$<$ T $>$\+::add (
+\begin{DoxyParamCaption}
+\item[{T}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_a4f7470a1fcd9194d4f6e288eb78b216e}{}\label{classS__List_a4f7470a1fcd9194d4f6e288eb78b216e}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!add@{add}}
+\index{add@{add}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{add(\+T data, int index)}{add(T data, int index)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf S\+\_\+\+List}$<$ T $>$\+::add (
+\begin{DoxyParamCaption}
+\item[{T}]{data, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_a478ebbea3bc181d5ecba4455f821e016}{}\label{classS__List_a478ebbea3bc181d5ecba4455f821e016}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!del@{del}}
+\index{del@{del}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{del(int index)}{del(int index)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf S\+\_\+\+List}$<$ T $>$\+::del (
+\begin{DoxyParamCaption}
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_afc57146fd54607be1f8a23bd14ad4a41}{}\label{classS__List_afc57146fd54607be1f8a23bd14ad4a41}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!del@{del}}
+\index{del@{del}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{del(\+T \+\_\+data)}{del(T _data)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf S\+\_\+\+List}$<$ T $>$\+::del (
+\begin{DoxyParamCaption}
+\item[{T}]{\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_ab7aa70c87ffeaa60e7e909aed78c64d8}{}\label{classS__List_ab7aa70c87ffeaa60e7e909aed78c64d8}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!del\+All@{del\+All}}
+\index{del\+All@{del\+All}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{del\+All()}{delAll()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf S\+\_\+\+List}$<$ T $>$\+::del\+All (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_aefc5209c854aeb3d6630561a2d4a047f}{}\label{classS__List_aefc5209c854aeb3d6630561a2d4a047f}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!del\+First@{del\+First}}
+\index{del\+First@{del\+First}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{del\+First()}{delFirst()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf S\+\_\+\+List}$<$ T $>$\+::del\+First (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_aea99b3adf10b66184acf2441377c640b}{}\label{classS__List_aea99b3adf10b66184acf2441377c640b}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!del\+Last@{del\+Last}}
+\index{del\+Last@{del\+Last}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{del\+Last()}{delLast()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf S\+\_\+\+List}$<$ T $>$\+::del\+Last (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_abd62cb0e217f9c5c3bb735842e78abd9}{}\label{classS__List_abd62cb0e217f9c5c3bb735842e78abd9}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!edit@{edit}}
+\index{edit@{edit}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{edit(\+T data, int index)}{edit(T data, int index)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf S\+\_\+\+List}$<$ T $>$\+::edit (
+\begin{DoxyParamCaption}
+\item[{T}]{data, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_a0261777964783986a4178b91bab9827b}{}\label{classS__List_a0261777964783986a4178b91bab9827b}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!exist@{exist}}
+\index{exist@{exist}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{exist(\+T n)}{exist(T n)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ bool {\bf S\+\_\+\+List}$<$ T $>$\+::exist (
+\begin{DoxyParamCaption}
+\item[{T}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_a9bd0b6ba960a9e4b2aad0140620d5413}{}\label{classS__List_a9bd0b6ba960a9e4b2aad0140620d5413}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!get@{get}}
+\index{get@{get}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{get(int index)}{get(int index)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ T {\bf S\+\_\+\+List}$<$ T $>$\+::get (
+\begin{DoxyParamCaption}
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_a9a10fdb609a9ba2858b56563b4fbbae2}{}\label{classS__List_a9a10fdb609a9ba2858b56563b4fbbae2}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!get\+First@{get\+First}}
+\index{get\+First@{get\+First}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{get\+First()}{getFirst()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf Node}$<$T$>$$\ast$ {\bf S\+\_\+\+List}$<$ T $>$\+::get\+First (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_adf77c59b93bf3143085e1ee9e177ab24}{}\label{classS__List_adf77c59b93bf3143085e1ee9e177ab24}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!get\+Last@{get\+Last}}
+\index{get\+Last@{get\+Last}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{get\+Last()}{getLast()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf Node}$<$T$>$$\ast$ {\bf S\+\_\+\+List}$<$ T $>$\+::get\+Last (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_afa8690865927d7524b73695f52fbf64f}{}\label{classS__List_afa8690865927d7524b73695f52fbf64f}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!get\+Size@{get\+Size}}
+\index{get\+Size@{get\+Size}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{get\+Size()}{getSize()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ int {\bf S\+\_\+\+List}$<$ T $>$\+::get\+Size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_a0f77fdfb8aba97c6c8c76e333e5be1f7}{}\label{classS__List_a0f77fdfb8aba97c6c8c76e333e5be1f7}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!get\+String@{get\+String}}
+\index{get\+String@{get\+String}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{get\+String()}{getString()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ std\+::string {\bf S\+\_\+\+List}$<$ T $>$\+::get\+String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_af16dbe30d56a18448001355a137a9c45}{}\label{classS__List_af16dbe30d56a18448001355a137a9c45}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!is\+Empty@{is\+Empty}}
+\index{is\+Empty@{is\+Empty}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{is\+Empty()}{isEmpty()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ bool {\bf S\+\_\+\+List}$<$ T $>$\+::is\+Empty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_a151b22dfc6f5a27a7cada5f690c575ae}{}\label{classS__List_a151b22dfc6f5a27a7cada5f690c575ae}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!show@{show}}
+\index{show@{show}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{show()}{show()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf S\+\_\+\+List}$<$ T $>$\+::show (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_a55c3046c5a69f8d02f9142f4b1e37220}{}\label{classS__List_a55c3046c5a69f8d02f9142f4b1e37220}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!show2ln@{show2ln}}
+\index{show2ln@{show2ln}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{show2ln()}{show2ln()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf S\+\_\+\+List}$<$ T $>$\+::show2ln (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_a5b949c6b65d876ff9af994d9382ed188}{}\label{classS__List_a5b949c6b65d876ff9af994d9382ed188}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!showln@{showln}}
+\index{showln@{showln}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{showln()}{showln()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf S\+\_\+\+List}$<$ T $>$\+::showln (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classS__List_ad8fbbf6cd698a6c8dbaaa1a32208b2e2}{}\label{classS__List_ad8fbbf6cd698a6c8dbaaa1a32208b2e2}
+
+
+\subsection{Member Data Documentation}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!cantidad@{cantidad}}
+\index{cantidad@{cantidad}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{cantidad}{cantidad}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ int {\bf S\+\_\+\+List}$<$ T $>$\+::cantidad}\hypertarget{classS__List_aefafb44e41237f1c630fea024e00b44a}{}\label{classS__List_aefafb44e41237f1c630fea024e00b44a}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!p@{p}}
+\index{p@{p}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{p}{p}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf Node}$<$T$>$$\ast$ {\bf S\+\_\+\+List}$<$ T $>$\+::p}\hypertarget{classS__List_a6ce39c9245834ee31378d47f6c219539}{}\label{classS__List_a6ce39c9245834ee31378d47f6c219539}
+\index{S\+\_\+\+List@{S\+\_\+\+List}!u@{u}}
+\index{u@{u}!S\+\_\+\+List@{S\+\_\+\+List}}
+\subsubsection[{\texorpdfstring{u}{u}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf Node}$<$T$>$$\ast$ {\bf S\+\_\+\+List}$<$ T $>$\+::u}\hypertarget{classS__List_a7b2b5b2876d0cce51d38e54097a7e9be}{}\label{classS__List_a7b2b5b2876d0cce51d38e54097a7e9be}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{S__List_8h}{S\+\_\+\+List.\+h}\end{DoxyCompactItemize}

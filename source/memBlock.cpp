@@ -7,6 +7,7 @@
 #include "../includes/memBlock.h"
 #include "../includes/cajun/json/reader.h"
 #include "../includes/cajun/json/writer.h"
+#include "../includes/S_List.h"
 
 using namespace json;
 /*!
@@ -22,6 +23,19 @@ memBlock::memBlock(std::size_t size){
     memBlock::size = size;
 }
 
+bool memBlock::searchMem(std::string id) {
+    block *aux = first;
+    while(aux != NULL){
+        if(aux->id == id && aux->used){
+            return true;
+        }else{
+            aux = aux->next;
+        }
+    }
+    return false;
+}
+
+
 /*!
  * Agrega datos n memoria
  * @param jsonStr informacion de datos a agregar.
@@ -34,25 +48,55 @@ void memBlock::addToMem(std::string jsonStr){
 
     String typetemp = jSonIn["type"];
     String idtemp = jSonIn["id"];
+
+    if(searchMem(idtemp.Value())){
+        return;
+    }
     Boolean localTemp = jSonIn["local"];
 
     block *aux = first;
 
     block *temp = new (os) block;
-    temp->data = new (current + sizeof(*temp)) char;
+    if(typetemp.Value() != "reference"){
+        temp->data = new (current + sizeof(*temp)) char;
+    }
 
-    if(typetemp.Value() == "str"){
+    if(typetemp.Value() == "str" | typetemp.Value() == "char"){
         String dataTemp = jSonIn["value"];
         strcpy(temp->data, dataTemp.Value().c_str());
     }
-    if(typetemp.Value() == "int" | idtemp.Value() == "float" | idtemp.Value() == "double"){
+    if(typetemp.Value() == "int" | typetemp.Value() == "double"){
         Number dataTemp = jSonIn["value"];
         std::string numtemp = std::to_string(dataTemp.Value());
         strcpy(temp->data, numtemp.c_str());
     }
+    if(typetemp.Value() == "float"){
+        std::stringstream fs;
+        Number datatemp = jSonIn["value"];
+        fs << datatemp.Value();
+        std::string dataTemp = fs.str();
+        strcpy(temp->data, dataTemp.c_str());
+    }
     if(typetemp.Value() == "bool"){
         Boolean dataTemp = jSonIn["value"];
         *temp->data = (char) dataTemp.Value();
+    }
+
+    if(typetemp.Value() == "reference"){
+        String datatemp = jSonIn["value"];
+        if(datatemp.Value() == "NULL"){
+            temp->data = NULL;
+        }else{
+            block *aux = first;
+            while(aux != NULL){
+                if(aux->id == datatemp.Value() && aux->used){
+                    break;
+                }else{
+                    aux = aux->next;
+                }
+            }
+            temp->data = aux->data;
+        }
     }
 
     if((sizeof(*temp) + sizeof(*temp->data) < free)){
@@ -65,7 +109,7 @@ void memBlock::addToMem(std::string jsonStr){
                 aux->data = temp->data;
                 aux->next = aux + sizeof(*aux) + sizeof(*aux->data);
                 free -= (sizeof(*aux) + sizeof(*aux->data));
-                current = (char *) aux->next;
+                current = (char *) aux->next + sizeof(*aux->data);
                 break;
             }else{
                 aux = aux + sizeof(*aux) + sizeof(*aux->data);
@@ -105,13 +149,12 @@ void memBlock::saveBlock(std::string id){
     temp->next = NULL;
     std::string name = id;
     name.append(".bin");
-    std::string direccion = "/home/fmurillom/CLionProjects/mServer/";
+    std::string direccion = "../data";
     if(aux != NULL){
         std::ofstream os(direccion.append(name), std::ios::binary);
         os.write(reinterpret_cast<char*>(&*temp), sizeof(*temp));
         os.close();
     }
-    delFromMem(id);
 }
 
 /*!
@@ -124,7 +167,7 @@ void memBlock::loadBlock(std::string id){
     std::string name;
     name = id;
     name.append(".bin");
-    std::string direccion = "/home/fmurillom/CLionProjects/mServer/";
+    std::string direccion = "../data";
     std::ifstream inputFile;
     inputFile.open(direccion.append(name), std::ios::in | std::ios::binary);
     inputFile.read(reinterpret_cast<char *>(&*aux), sizeof(*aux));
@@ -133,7 +176,7 @@ void memBlock::loadBlock(std::string id){
     jsonAdd["id"] = String(aux->id);
     jsonAdd["type"] = String(aux->type);
     jsonAdd["local"] = Boolean(aux->used);
-    if(aux->type == "str"){
+    if(aux->type == "str" ||  aux->type == "char"){
         jsonAdd["value"] = String(aux->data);
     }
     if(aux->type == "int" | aux->type == "float" | aux->type == "double"){
@@ -156,25 +199,27 @@ void memBlock::loadBlock(std::string id){
 
 void memBlock::defragMem(){
     block *aux = first;
-    block *before = aux;
+    block *aux2 = aux + sizeof(*aux) + sizeof(*aux->data);
+    block *auxNext = aux->next;
+    current = (char *) aux;
     while(aux != NULL){
-        block *between = aux + sizeof(*aux) + sizeof(*aux->data);
-        if(aux->next != between  && !between->used && aux->next != NULL){
-            block *aux2 = aux + sizeof(*aux) + sizeof(*aux->data);
-            aux2->id = aux->next->id;
-            aux2->used = true;
-            aux2->type = aux->next->type;
-            strcpy(aux2->data, aux->next->data);
-            aux2->next = aux->next->next;
-            before->next = aux2;
-            aux->next->next->used = false;
-            before = aux2;
-            aux = aux + (sizeof(*aux) + sizeof(*aux->data));
-        }else{
-            aux = aux->next;
+        if(!aux2->used && aux2->next != NULL){
+            auxNext = aux2->next;
+            block *temp = new (aux2) block;
+            char *data = new (aux2 + sizeof(*aux2)) char;
+            temp->id = auxNext->id;
+            temp->type = auxNext->type;
+            temp->used = auxNext->used;
+            strcpy(data, auxNext->data);
+            temp->data = data;
+            temp->next = auxNext->next;
+        }
+        aux = aux->next;
+        if(aux != NULL){
+            auxNext = aux->next;
+            aux2 = aux + sizeof(*aux) + sizeof(*aux->data);
         }
     }
-    current = (char *) before->next;
 }
 
 /*!
@@ -200,9 +245,13 @@ void memBlock::delFromMem(std::string jsonIn){
     }
     if(aux != NULL){
         aux->used = false;
-        before->next = aux->next;
         free += (sizeof(*aux) + sizeof(*aux->data));
         if(aux->next->next == NULL){
+            if(aux == first){
+                current = (char *) first;
+                return;
+            }
+            current = (char *) before->next;
             return;
         }
         defragMem();
@@ -224,14 +273,23 @@ std::string memBlock::toJson(){
         if(aux->used){
             Object variableData;
             variableData["id"] = String(aux->id);
-            if(aux->type == "str"){
+            if(aux->type == "str" | aux->type == "char"){
                 variableData["value"] = String(aux->data);
             }
-            if(aux->type == "int" | aux->type == "float" | aux->type == "double"){
+            if(aux->type == "int" | aux->type == "double" | aux->type == "long"){
                 variableData["value"] = Number(atoi(aux->data));
+            }
+            if(aux->type == "float"){
+                std::string::size_type sz;
+                variableData["value"] = Number(std::atof(aux->data));
             }
             if(aux->type == "bool"){
                 variableData["value"] = Boolean((bool) aux->data);
+            }
+            if(aux->type == "reference"){
+                std::stringstream ssData;
+                ssData << aux->data;
+                variableData["value"] = String(ssData.str());
             }
             variableData["type"] = String(aux->type);
             std::stringstream ss;
@@ -283,6 +341,9 @@ void memBlock::receiver(std::string in) {
     if(command == "del"){
         delFromMem(in);
     }
+    if(command == "edit"){
+        editData(in);
+    }
 }
 
 /*!
@@ -307,7 +368,7 @@ std::string memBlock::inMem(std::string id) {
         std::stringstream ss;
         JsonOut["id"] = String(id);
         JsonOut["found"] = Boolean(true);
-        if(aux->type == "str"){
+        if(aux->type == "str" || aux->type == "char"){
             JsonOut["value"] = String(aux->data);
         }
         if(aux->type == "int" | aux->type == "float" | aux->type == "double"){
@@ -316,6 +377,10 @@ std::string memBlock::inMem(std::string id) {
         if(aux->type == "bool"){
             JsonOut["value"] = Boolean((bool) aux->data);
         }
+        JsonOut["type"] = String(aux->type);
+        std::stringstream ps;
+        ps << &aux->data;
+        JsonOut["pointer"] = String(ps.str());
         Writer::Write(JsonOut, ss);
         return ss.str();
     }else{
@@ -327,4 +392,62 @@ std::string memBlock::inMem(std::string id) {
         Writer::Write(JsonOut, ss);
         return ss.str();
     }
+}
+
+void memBlock::editData(std::string jsonin) {
+    std::stringstream ss;
+    ss << jsonin;
+    Object jSon;
+    Reader::Read(jSon, ss);
+    block *aux = first;
+    std::string id;
+    String idTemp = jSon["id"];
+    id = idTemp.Value();
+    while(aux != NULL){
+        if(aux->id == id){
+            break;
+        }else{
+            aux = aux->next;
+        }
+    }
+
+    String typetemp = jSon["type"];
+    if(aux != NULL){
+        if(typetemp.Value() == "str" | typetemp.Value() == "char"){
+            String dataTemp = jSon["value"];
+            strcpy(aux->data, dataTemp.Value().c_str());
+        }
+        if(typetemp.Value() == "int" | typetemp.Value() == "double"){
+            Number dataTemp = jSon["value"];
+            std::string numtemp = std::to_string(dataTemp.Value());
+            strcpy(aux->data, numtemp.c_str());
+        }
+        if(typetemp.Value() == "float"){
+            std::stringstream fs;
+            Number datatemp = jSon["value"];
+            fs << datatemp.Value();
+            std::string dataTemp = fs.str();
+            strcpy(aux->data, dataTemp.c_str());
+        }
+        if(typetemp.Value() == "bool"){
+            Boolean dataTemp = jSon["value"];
+            *aux->data = (char) dataTemp.Value();
+        }
+        if(typetemp.Value() == "reference"){
+            String search = jSon["value"];
+            bool foundBool = searchMem(search.Value());
+            if(foundBool){
+                block *aux2 = first;
+                while(aux2 != NULL){
+                    if(aux2->id == search.Value() && aux2->used){
+                        break;
+                    }else{
+                        aux2 = aux2->next;
+                    }
+                }
+                aux->data = aux2->data;
+            }
+        }
+    }
+
 }

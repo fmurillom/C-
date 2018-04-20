@@ -1,0 +1,6 @@
+digraph "S_List&lt; T &gt;"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{S_List\< T \>\n|+ p\l+ u\l+ cantidad\l|+ S_List()\l+ getFirst()\l+ getLast()\l+ getSize()\l+ isEmpty()\l+ add()\l+ add()\l+ edit()\l+ exist()\l+ get()\land 9 more...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+}

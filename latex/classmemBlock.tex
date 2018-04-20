@@ -1,0 +1,214 @@
+\hypertarget{classmemBlock}{}\section{mem\+Block Class Reference}
+\label{classmemBlock}\index{mem\+Block@{mem\+Block}}
+
+
+{\ttfamily \#include $<$mem\+Block.\+h$>$}
+
+
+
+Collaboration diagram for mem\+Block\+:
+% FIG 0
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmemBlock_a1093bea602005d5bb0bc97f253d19244}{mem\+Block} (std\+::size\+\_\+t size)
+\item 
+std\+::string \hyperlink{classmemBlock_a3c445277be1c4191aa766a95cfd98173}{to\+Json} ()
+\item 
+void \hyperlink{classmemBlock_a5cb4510c0c761be4b4e6c62e47a2d53e}{add\+To\+Mem} (std\+::string json\+Str)
+\item 
+void \hyperlink{classmemBlock_ad188f3126b9c7bdcbceaabd08044f741}{del\+From\+Mem} (std\+::string json\+In)
+\item 
+void \hyperlink{classmemBlock_ad85e0897e32107aa528d6bdec1c79ce4}{release\+Mem} ()
+\item 
+void \hyperlink{classmemBlock_adcbfb18e1d6296725dbcd993de4f6deb}{save\+Block} (std\+::string id)
+\item 
+void \hyperlink{classmemBlock_a406ebdff679c1e0b25f12f211f41f983}{load\+Block} (std\+::string id)
+\item 
+std\+::size\+\_\+t \hyperlink{classmemBlock_a971965e8165ee5e97a83e2381d9ec9a9}{get\+Free\+Space} ()
+\item 
+void \hyperlink{classmemBlock_ac520227da19e01acda51ceed9fd96d37}{receiver} (std\+::string in)
+\item 
+std\+::string \hyperlink{classmemBlock_a43e7e9052ba94d6ed6259a616f00c355}{in\+Mem} (std\+::string id)
+\item 
+void \hyperlink{classmemBlock_ab6706d6c18cce891b57d449697eeff06}{edit\+Data} (std\+::string jsonin)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{mem\+Block@{mem\+Block}!mem\+Block@{mem\+Block}}
+\index{mem\+Block@{mem\+Block}!mem\+Block@{mem\+Block}}
+\subsubsection[{\texorpdfstring{mem\+Block(std\+::size\+\_\+t size)}{memBlock(std::size_t size)}}]{\setlength{\rightskip}{0pt plus 5cm}mem\+Block\+::mem\+Block (
+\begin{DoxyParamCaption}
+\item[{std\+::size\+\_\+t}]{size}
+\end{DoxyParamCaption}
+)}\hypertarget{classmemBlock_a1093bea602005d5bb0bc97f253d19244}{}\label{classmemBlock_a1093bea602005d5bb0bc97f253d19244}
+Constructor de la clase. 
+\begin{DoxyParams}{Parameters}
+{\em size} & memoria en bytes que se desea resrvar para la ejecucion.\\
+\hline
+\end{DoxyParams}
+Metodo constructor encargado de reservar el bloque de memoeria a utilizar por el servidor de memoria y separar este bloque en datos y os. 
+\begin{DoxyParams}{Parameters}
+{\em size} & tamaño crear el blouque. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{mem\+Block@{mem\+Block}!add\+To\+Mem@{add\+To\+Mem}}
+\index{add\+To\+Mem@{add\+To\+Mem}!mem\+Block@{mem\+Block}}
+\subsubsection[{\texorpdfstring{add\+To\+Mem(std\+::string json\+Str)}{addToMem(std::string jsonStr)}}]{\setlength{\rightskip}{0pt plus 5cm}void mem\+Block\+::add\+To\+Mem (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{json\+Str}
+\end{DoxyParamCaption}
+)}\hypertarget{classmemBlock_a5cb4510c0c761be4b4e6c62e47a2d53e}{}\label{classmemBlock_a5cb4510c0c761be4b4e6c62e47a2d53e}
+Funcion para agregar un nuevo dato en memoria. 
+\begin{DoxyParams}{Parameters}
+{\em json\+Str} & json que contiene los datos a agregar, su formato se puede observar en el archivo json\+Send.\\
+\hline
+\end{DoxyParams}
+Agrega datos n memoria 
+\begin{DoxyParams}{Parameters}
+{\em json\+Str} & informacion de datos a agregar. \\
+\hline
+\end{DoxyParams}
+\index{mem\+Block@{mem\+Block}!del\+From\+Mem@{del\+From\+Mem}}
+\index{del\+From\+Mem@{del\+From\+Mem}!mem\+Block@{mem\+Block}}
+\subsubsection[{\texorpdfstring{del\+From\+Mem(std\+::string json\+In)}{delFromMem(std::string jsonIn)}}]{\setlength{\rightskip}{0pt plus 5cm}void mem\+Block\+::del\+From\+Mem (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{json\+In}
+\end{DoxyParamCaption}
+)}\hypertarget{classmemBlock_ad188f3126b9c7bdcbceaabd08044f741}{}\label{classmemBlock_ad188f3126b9c7bdcbceaabd08044f741}
+Elimina el dato deseado. 
+\begin{DoxyParams}{Parameters}
+{\em json\+In} & String de json con la informacion para eliminar una variable, su formato se puede obsevar en json\+Send\\
+\hline
+\end{DoxyParams}
+Elimina el dato deseado de la memoria. 
+\begin{DoxyParams}{Parameters}
+{\em json\+In} & datos de memoria que se desean eliminar. \\
+\hline
+\end{DoxyParams}
+\index{mem\+Block@{mem\+Block}!edit\+Data@{edit\+Data}}
+\index{edit\+Data@{edit\+Data}!mem\+Block@{mem\+Block}}
+\subsubsection[{\texorpdfstring{edit\+Data(std\+::string jsonin)}{editData(std::string jsonin)}}]{\setlength{\rightskip}{0pt plus 5cm}void mem\+Block\+::edit\+Data (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{jsonin}
+\end{DoxyParamCaption}
+)}\hypertarget{classmemBlock_ab6706d6c18cce891b57d449697eeff06}{}\label{classmemBlock_ab6706d6c18cce891b57d449697eeff06}
+\index{mem\+Block@{mem\+Block}!get\+Free\+Space@{get\+Free\+Space}}
+\index{get\+Free\+Space@{get\+Free\+Space}!mem\+Block@{mem\+Block}}
+\subsubsection[{\texorpdfstring{get\+Free\+Space()}{getFreeSpace()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::size\+\_\+t mem\+Block\+::get\+Free\+Space (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classmemBlock_a971965e8165ee5e97a83e2381d9ec9a9}{}\label{classmemBlock_a971965e8165ee5e97a83e2381d9ec9a9}
+Retorna la cantidad de espacio que queda disponible. \begin{DoxyReturn}{Returns}
+tamaño en bytes que queda disponible.
+\end{DoxyReturn}
+Retorna la cantidad de espacio libre que le queda a la memoria. \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{mem\+Block@{mem\+Block}!in\+Mem@{in\+Mem}}
+\index{in\+Mem@{in\+Mem}!mem\+Block@{mem\+Block}}
+\subsubsection[{\texorpdfstring{in\+Mem(std\+::string id)}{inMem(std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string mem\+Block\+::in\+Mem (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{classmemBlock_a43e7e9052ba94d6ed6259a616f00c355}{}\label{classmemBlock_a43e7e9052ba94d6ed6259a616f00c355}
+Funcion que determina si la variable especificada se encuentra en memoria. 
+\begin{DoxyParams}{Parameters}
+{\em id} & identificador de variable que se desea buscar. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+json que indica el nombre y si si encontro la variable deseada. Estructura del mensaje en json\+Send.
+\end{DoxyReturn}
+Verifica si la variable deseada se encuentra en la memoria. 
+\begin{DoxyParams}{Parameters}
+{\em id} & identificador de la variable que desea buscar. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+json\+String que contiene la informacion si esta se encuentra en memoria. 
+\end{DoxyReturn}
+\index{mem\+Block@{mem\+Block}!load\+Block@{load\+Block}}
+\index{load\+Block@{load\+Block}!mem\+Block@{mem\+Block}}
+\subsubsection[{\texorpdfstring{load\+Block(std\+::string id)}{loadBlock(std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}void mem\+Block\+::load\+Block (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{classmemBlock_a406ebdff679c1e0b25f12f211f41f983}{}\label{classmemBlock_a406ebdff679c1e0b25f12f211f41f983}
+Carga el bloque especificado desde el disco duro y lo inseta en la memoria. 
+\begin{DoxyParams}{Parameters}
+{\em id} & el id del bloque que se desea cargar.\\
+\hline
+\end{DoxyParams}
+Carga un bloque de memori de disco a memoria R\+AM. 
+\begin{DoxyParams}{Parameters}
+{\em id} & identificador del bloque que se desea cargar. \\
+\hline
+\end{DoxyParams}
+\index{mem\+Block@{mem\+Block}!receiver@{receiver}}
+\index{receiver@{receiver}!mem\+Block@{mem\+Block}}
+\subsubsection[{\texorpdfstring{receiver(std\+::string in)}{receiver(std::string in)}}]{\setlength{\rightskip}{0pt plus 5cm}void mem\+Block\+::receiver (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{in}
+\end{DoxyParamCaption}
+)}\hypertarget{classmemBlock_ac520227da19e01acda51ceed9fd96d37}{}\label{classmemBlock_ac520227da19e01acda51ceed9fd96d37}
+Funcion para identificar que se debe hacer, si agregar a memoria o eliminar segun el comando que venga especificado en el j\+Son. 
+\begin{DoxyParams}{Parameters}
+{\em in} & sring de Json identificando que se debe hacer y los datos con que hacerlo, tiene la misma estructura que el de agregar memoria.\\
+\hline
+\end{DoxyParams}
+Metodo para diferenciar entre agregar y eliminar datos. 
+\begin{DoxyParams}{Parameters}
+{\em in} & \\
+\hline
+\end{DoxyParams}
+\index{mem\+Block@{mem\+Block}!release\+Mem@{release\+Mem}}
+\index{release\+Mem@{release\+Mem}!mem\+Block@{mem\+Block}}
+\subsubsection[{\texorpdfstring{release\+Mem()}{releaseMem()}}]{\setlength{\rightskip}{0pt plus 5cm}void mem\+Block\+::release\+Mem (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classmemBlock_ad85e0897e32107aa528d6bdec1c79ce4}{}\label{classmemBlock_ad85e0897e32107aa528d6bdec1c79ce4}
+Funcion para eliminar y liberar toda la memoria resrvada para el servidor.
+
+Metodo encargado de liberar y borrar todo el bloque de memoria seleccionado. \index{mem\+Block@{mem\+Block}!save\+Block@{save\+Block}}
+\index{save\+Block@{save\+Block}!mem\+Block@{mem\+Block}}
+\subsubsection[{\texorpdfstring{save\+Block(std\+::string id)}{saveBlock(std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}void mem\+Block\+::save\+Block (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{classmemBlock_adcbfb18e1d6296725dbcd993de4f6deb}{}\label{classmemBlock_adcbfb18e1d6296725dbcd993de4f6deb}
+Guarda en disco un archivo .bin que contiene la informacion de la variable dumpeada 
+\begin{DoxyParams}{Parameters}
+{\em id} & id de la variable que se desea almacenar en disco\\
+\hline
+\end{DoxyParams}
+Guarda un bloque de memoria en disco. 
+\begin{DoxyParams}{Parameters}
+{\em id} & identificador del bloque de memoria que se desea guardar. \\
+\hline
+\end{DoxyParams}
+\index{mem\+Block@{mem\+Block}!to\+Json@{to\+Json}}
+\index{to\+Json@{to\+Json}!mem\+Block@{mem\+Block}}
+\subsubsection[{\texorpdfstring{to\+Json()}{toJson()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string mem\+Block\+::to\+Json (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classmemBlock_a3c445277be1c4191aa766a95cfd98173}{}\label{classmemBlock_a3c445277be1c4191aa766a95cfd98173}
+Funcion que convierte todos los datos en memoria en un solo string json para enviar el I\+DE \begin{DoxyReturn}{Returns}
+string con todos los datos en memoria para enviar al I\+DE
+\end{DoxyReturn}
+Convierte el estado de la memoria incluidos sus datos a un jsonstring para poder ser enviada utilizando sockets. \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{memBlock_8h}{mem\+Block.\+h}\item 
+\hyperlink{memBlock_8cpp}{mem\+Block.\+cpp}\end{DoxyCompactItemize}

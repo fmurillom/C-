@@ -11,4 +11,4 @@ set(CMAKE_CXX_COMPILER /usr/bin/g++-7)
 
 
 
-add_executable(Proyecto_1_v0 includes/cajun includes/memBlock.h source/memBlock.cpp sintaxys/mainS.cpp includes/S_List.h includes/Scoope.h source/Scoope.cpp main.cpp includes/Parser.h)
+add_executable(Proyecto_1_v0 includes/cajun includes/memBlock.h source/memBlock.cpp sintaxys/mainS.cpp includes/S_List.h includes/Scoope.h source/Scoope.cpp mManager/main.cpp includes/Parser.h)

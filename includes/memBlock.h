@@ -55,6 +55,8 @@ private:
      */
     void defragMem();
 
+    bool searchMem(std::string id);
+
 
 public:
 
@@ -126,6 +128,8 @@ public:
      */
 
     std::string inMem(std::string id);
+
+    void editData(std::string jsonin);
 
 };
 

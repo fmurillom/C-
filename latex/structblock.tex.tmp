@@ -1,0 +1,34 @@
+\hypertarget{structblock}{}\section{block Struct Reference}
+\label{structblock}\index{block@{block}}
+
+
+Collaboration diagram for block\+:
+% FIG 0
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{structblock_a6a9c4ef6042f2dd6bc70681175d55470}{id}
+\item 
+char $\ast$ {\bfseries data}\hypertarget{structblock_aea1e121326c80e00ecd3b984fe66e52f}{}\label{structblock_aea1e121326c80e00ecd3b984fe66e52f}
+
+\item 
+std\+::string {\bfseries type}\hypertarget{structblock_a37c3af86f231299df298c75962bfa586}{}\label{structblock_a37c3af86f231299df298c75962bfa586}
+
+\item 
+bool {\bfseries used}\hypertarget{structblock_ac91d285d48c574a14b428b2a07dfbf48}{}\label{structblock_ac91d285d48c574a14b428b2a07dfbf48}
+
+\item 
+\hyperlink{structblock}{block} $\ast$ {\bfseries next} = N\+U\+LL\hypertarget{structblock_aa60741c348a6f565b2c1e94df9451d59}{}\label{structblock_aa60741c348a6f565b2c1e94df9451d59}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Data Documentation}
+\index{block@{block}!id@{id}}
+\index{id@{id}!block@{block}}
+\subsubsection[{\texorpdfstring{id}{id}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string block\+::id}\hypertarget{structblock_a6a9c4ef6042f2dd6bc70681175d55470}{}\label{structblock_a6a9c4ef6042f2dd6bc70681175d55470}
+Estructura creada para almacenar en memoria los datos de cada variable que entre en memoria 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+mem\+Block.\+h\end{DoxyCompactItemize}

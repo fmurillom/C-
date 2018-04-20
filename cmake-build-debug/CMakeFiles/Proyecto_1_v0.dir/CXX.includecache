@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/loop/CLionProjects/Proyecto_1_v0/includes/S_List.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/S_List.h
 cstdio
 -
 string.h
@@ -14,13 +14,13 @@ string.h
 iostream
 -
 
-/home/loop/CLionProjects/Proyecto_1_v0/includes/Scoope.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/Scoope.h
 iostream
 -
 string.h
 -
 
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/elements.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/elements.h
 deque
 -
 list
@@ -30,13 +30,13 @@ string
 stdexcept
 -
 elements.inl
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/elements.inl
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/elements.inl
 
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/elements.inl
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/elements.inl
 visitor.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/visitor.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/visitor.h
 reader.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/reader.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/reader.h
 cassert
 -
 algorithm
@@ -44,17 +44,17 @@ algorithm
 map
 -
 
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/reader.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/reader.h
 elements.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/elements.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/elements.h
 iostream
 -
 vector
 -
 reader.inl
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/reader.inl
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/reader.inl
 
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/reader.inl
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/reader.inl
 cassert
 -
 set
@@ -62,63 +62,75 @@ set
 sstream
 -
 
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/visitor.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/visitor.h
 elements.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/elements.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/elements.h
 
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/writer.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/writer.h
 elements.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/elements.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/elements.h
 visitor.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/visitor.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/visitor.h
 writer.inl
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/writer.inl
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/writer.inl
 
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/writer.inl
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/writer.inl
 writer.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/writer.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/writer.h
 iostream
 -
 iomanip
 -
 
-/home/loop/CLionProjects/Proyecto_1_v0/includes/memBlock.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/memBlock.h
 cstddef
 -
 iostream
 -
 
-/home/loop/CLionProjects/Proyecto_1_v0/main.cpp
-iostream
+/home/fmurillom/CLionProjects/Proyecto_1_v0/mManager/main.cpp
+stdio.h
 -
-includes/S_List.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/S_List.h
-includes/Scoope.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/Scoope.h
-regex
+unistd.h
 -
-string
+stdlib.h
 -
+cstring
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+../includes/memBlock.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/memBlock.h
+../includes/cajun/json/reader.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/reader.h
+../includes/cajun/json/writer.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/writer.h
 
-/home/loop/CLionProjects/Proyecto_1_v0/sintaxys/mainS.cpp
+/home/fmurillom/CLionProjects/Proyecto_1_v0/sintaxys/mainS.cpp
 
-/home/loop/CLionProjects/Proyecto_1_v0/source/Scoope.cpp
+/home/fmurillom/CLionProjects/Proyecto_1_v0/source/Scoope.cpp
 iostream
 -
 string.h
 -
 ../includes/Scoope.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/Scoope.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/Scoope.h
 
-/home/loop/CLionProjects/Proyecto_1_v0/source/memBlock.cpp
+/home/fmurillom/CLionProjects/Proyecto_1_v0/source/memBlock.cpp
 fstream
 -
 cstring
 -
 ../includes/memBlock.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/memBlock.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/memBlock.h
 ../includes/cajun/json/reader.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/reader.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/reader.h
 ../includes/cajun/json/writer.h
-/home/loop/CLionProjects/Proyecto_1_v0/includes/cajun/json/writer.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/cajun/json/writer.h
+../includes/S_List.h
+/home/fmurillom/CLionProjects/Proyecto_1_v0/includes/S_List.h
 
