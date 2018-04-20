@@ -56,7 +56,7 @@ string const DECIMAL        = "\\d+\\.\\d+";
 string const CARACTER       = "\\'.\\'";
 string const CADENA         = "\\\"[^\\\"]*\\\"";
 string const    TDL         = "int|long|char|float|double";             //Nombres de los [T]ipos de [D]atos [L]ineales
-string const    PC          = "reference|Hable|getAddr|getValue";   //Nombres de las [P]alabras [C]laves
+string const    PC          = "reference||getAddr|getValue";   //Nombres de las [P]alabras [C]laves
 string const    NV          = "[A-z][A-z\\d\\_\\.]*";                   //[N]ombres de las [V]ariables
 string const    TD          = TDL+"|struct";                            //Nombres de los [T]ipos de [D]atos
 
@@ -1018,6 +1018,7 @@ bool C_IDE::readLines(std::string text)
                         {
                             string s = regex_replace(tokens->get(2), regex("\""), "");
                             cout << "\033[0;35m" + s + "\033[0m\n" << endl;
+                            ui->textBrowser->append(QString::fromStdString(tokens->get(2)));
                         }
                         else
                         {

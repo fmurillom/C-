@@ -13,54 +13,7 @@
   <component name="ChangeListManager">
     <list default="true" id="070dc3de-f62f-435c-ae50-4eb1a0dba04e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/C_IDE.pro" afterPath="$PROJECT_DIR$/C_IDE/C_IDE.pro" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/C_IDE.pro.user" afterPath="$PROJECT_DIR$/C_IDE/C_IDE.pro.user" />
       <change beforePath="$PROJECT_DIR$/C_IDE/c_ide.cpp" afterPath="$PROJECT_DIR$/C_IDE/c_ide.cpp" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/c_ide.h" afterPath="$PROJECT_DIR$/C_IDE/c_ide.h" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/c_ide.ui" afterPath="$PROJECT_DIR$/C_IDE/c_ide.ui" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/includes/S_List.h" afterPath="$PROJECT_DIR$/C_IDE/includes/S_List.h" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/includes/cajun/json/elements.h" afterPath="$PROJECT_DIR$/C_IDE/includes/cajun/json/elements.h" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/includes/cajun/json/elements.inl" afterPath="$PROJECT_DIR$/C_IDE/includes/cajun/json/elements.inl" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/includes/cajun/json/reader.h" afterPath="$PROJECT_DIR$/C_IDE/includes/cajun/json/reader.h" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/includes/cajun/json/reader.inl" afterPath="$PROJECT_DIR$/C_IDE/includes/cajun/json/reader.inl" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/includes/cajun/json/visitor.h" afterPath="$PROJECT_DIR$/C_IDE/includes/cajun/json/visitor.h" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/includes/cajun/json/writer.h" afterPath="$PROJECT_DIR$/C_IDE/includes/cajun/json/writer.h" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/includes/cajun/json/writer.inl" afterPath="$PROJECT_DIR$/C_IDE/includes/cajun/json/writer.inl" />
-      <change beforePath="$PROJECT_DIR$/C_IDE/mainAL.cpp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CMakeCCompiler.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CMakeCCompiler.cmake" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CMakeCXXCompiler.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CMakeCXXCompiler.cmake" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CMakeDetermineCompilerABI_C.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CMakeDetermineCompilerABI_C.bin" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CMakeDetermineCompilerABI_CXX.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CMakeDetermineCompilerABI_CXX.bin" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CMakeSystem.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CMakeSystem.cmake" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CompilerIdC/a.out" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CompilerIdC/a.out" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CompilerIdCXX/a.out" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.9.6/CompilerIdCXX/a.out" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/CXX.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/CXX.includecache" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/DependInfo.cmake" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/build.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/build.make" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/cmake_clean.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/cmake_clean.cmake" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/depend.internal" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/depend.internal" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/depend.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/depend.make" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/link.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/link.txt" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/mManager/main.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/mManager/main.cpp.o" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/main.cpp.o" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/sintaxys/mainS.cpp.o" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/source/Scoope.cpp.o" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Proyecto_1_v0.dir/source/memBlock.cpp.o" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Proyecto_1_v0" afterPath="$PROJECT_DIR$/cmake-build-debug/Proyecto_1_v0" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/mServer.cbp" afterPath="$PROJECT_DIR$/cmake-build-debug/mServer.cbp" />
-      <change beforePath="$PROJECT_DIR$/includes/memBlock.h" afterPath="$PROJECT_DIR$/includes/memBlock.h" />
-      <change beforePath="$PROJECT_DIR$/source/memBlock.cpp" afterPath="$PROJECT_DIR$/source/memBlock.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -353,7 +306,7 @@
       <workItem from="1524064945212" duration="5728000" />
       <workItem from="1524096043866" duration="671000" />
       <workItem from="1524189149269" duration="8600000" />
-      <workItem from="1524245015867" duration="1714000" />
+      <workItem from="1524245015867" duration="2664000" />
     </task>
     <task id="LOCAL-00001" summary="Agreada deteccion sintaxis desde antes de semana santa">
       <created>1523424278464</created>
@@ -369,11 +322,18 @@
       <option name="project" value="LOCAL" />
       <updated>1523425232664</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Agregada documentacion de doxygen, mejoras en interfaz y agregados metodos getAdrr y getValue">
+      <created>1524247509965</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1524247509965</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="213390000" />
+    <option name="totallyTimeSpent" value="214340000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -389,11 +349,11 @@
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31365114" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.49783316" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32565445" sideWeight="0.26814735" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32565445" sideWeight="0.26706392" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33926702" sideWeight="0.66088843" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33926702" sideWeight="0.66251355" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33926702" sideWeight="0.3391116" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33926702" sideWeight="0.33748645" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.49783316" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -416,7 +376,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Agreada deteccion sintaxis desde antes de semana santa" />
     <MESSAGE value="Merge en pcs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge en pcs" />
+    <MESSAGE value="Agregada documentacion de doxygen, mejoras en interfaz y agregados metodos getAdrr y getValue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Agregada documentacion de doxygen, mejoras en interfaz y agregados metodos getAdrr y getValue" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
