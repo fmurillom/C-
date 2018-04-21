@@ -98,6 +98,6 @@ void sockServer(memBlock *server, int portIn){
 
 int main(int argc, char *argv[])
 {
-    memBlock *mServer = new memBlock(100000);
+    memBlock *mServer = new memBlock(atoi(argv[0]));
     sockServer(mServer, atoi(argv[1]));
 }

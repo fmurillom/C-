@@ -560,11 +560,10 @@ bool C_IDE::readLines(std::string text)
         }
 
 
-        cout << "Instruccion -> [";
+        QString qstr = QString::fromStdString( (string) "Instruccion -> [" + instruccion + "] : ");
+        ui->textBrowser->append(qstr);
         cout << "\033[0;33m" + instruccion + "\033[0m";
         cout << "] : ";
-
-
         S_List<string> * tokens_antes_de_asgnacion = new S_List<string>;
         bool llego_al_igual = false;
 
@@ -573,6 +572,7 @@ bool C_IDE::readLines(std::string text)
         {
 
             case 1://Declaracion
+
                 cout << "Declaracion" << endl;
                 switch(tokens->getSize())
                 {
